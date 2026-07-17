@@ -28,9 +28,6 @@ import {
   results,
 } from "@/lib/decisionTree";
 
-// ★ 交班設定：logo 與人體圖同放一個資料夾，路徑對應 BodyMap.tsx 的 ASSET_BASE
-const LOGO = "https://cdn.jsdelivr.net/gh/weijenpaul/lezhikang-pain-assessment@v1/assets/pain/logo-horizontal-medical.png";
-
 type Step =
   | { stage: "intro" }
   | { stage: "region" }
@@ -58,7 +55,7 @@ function stageIndex(step: Step): number {
   }
 }
 
-const STEP_LABELS = ["開始", "指出部位", "安全確認", "描述感覺", "評估結果"];
+const STEP_LABELS = ["開始", "點選部位", "安全確認", "描述感覺", "看見結果"];
 
 function SectionMark({ children }: { children: React.ReactNode }) {
   return (
@@ -101,7 +98,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#FAFAF8] text-[#2B3634]" style={{ fontFamily: "'Noto Sans TC', sans-serif" }}>
-      {/* App 頁首已移除（站台 chrome header 供品牌與 LINE 入口）；保留細進度軌 */}
+      {/* 嵌入版：不重複 Zenbu 頁首，只保留一條細進度線 */}
       <div className="sticky top-0 z-40 h-[3px] bg-[#EDF3F1]">
         <div
           className="h-full bg-[#009B8D] transition-all duration-500 ease-out"
@@ -214,11 +211,11 @@ export default function Home() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="mt-20 border-t border-[#E4ECEA] bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-center space-y-2">
+      {/* 嵌入版：精簡底部，只留一行必要免責 */}
+      <footer className="mt-14 border-t border-[#E4ECEA]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 text-center">
           <p className="text-xs text-[#9AA8A5] leading-relaxed">
-            本頁為衛教資訊與自我評估參考，不能取代醫師當面診斷。若症狀持續或加劇，請盡速就醫。
+            本工具提供自我評估參考，不能取代醫師當面診斷。症狀持續或加劇，請盡速就醫。
           </p>
         </div>
       </footer>
@@ -229,34 +226,33 @@ export default function Home() {
 /* ============ 開始頁 ============ */
 function Intro({ onStart }: { onStart: () => void }) {
   return (
-    <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-14 sm:pt-20 pb-10">
-      <div className="grid lg:grid-cols-[1.15fr_1fr] gap-10 lg:gap-16 items-center">
-        <div className="space-y-7">
-          <SectionMark>疼痛自我評估</SectionMark>
-          <h1 className="text-[clamp(30px,5vw,46px)] font-black leading-[1.25] tracking-tight text-[#1F2D2A]">
-            指給我們看，
+    <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14 pb-8">
+      <div className="grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-14 items-center">
+        <div className="space-y-6">
+          <h1 className="text-[clamp(26px,4.2vw,40px)] font-black leading-[1.35] tracking-tight text-[#1F2D2A]">
+            哪裡痛，點哪裡。
             <br />
-            哪裡在痛？
+            <span className="text-[#009B8D]">60 秒</span>瞭解你的疼痛。
           </h1>
-          <p className="text-[17px] leading-[1.9] text-[#4A4A4A] max-w-md">
-            用 60 秒，點選疼痛的部位、描述你的感覺，我們幫你初步判斷「最可能是什麼問題」，並告訴你下一步該怎麼做。
+          <p className="text-[16px] sm:text-[17px] leading-[1.9] text-[#4A4A4A] max-w-md">
+            不用掛號、不用填資料。點選疼痛的部位、回答幾個問題，你就會知道自己的狀況最可能是什麼、下一步該怎麼做。
           </p>
           <div className="flex flex-wrap items-center gap-4">
             <button
               onClick={onStart}
               className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-[#009B8D] text-white text-base font-bold hover:bg-[#007A6E] active:scale-[0.97] transition-all duration-150"
             >
-              指出疼痛的位置
+              開始評估我的疼痛
               <ArrowRight className="w-4.5 h-4.5" />
             </button>
             <span className="inline-flex items-center gap-1.5 text-sm text-[#9AA8A5]">
               <Clock className="w-4 h-4" />
-              約 60 秒 · 免填資料
+              免登入 · 免填資料
             </span>
           </div>
-          {/* 評估流程預告：進度語言從首屏可見 */}
-          <ol className="flex items-center gap-0 pt-2 max-w-md">
-            {["指出部位", "安全確認", "描述感覺", "評估結果"].map((s, i, arr) => (
+          {/* 四步驟預告：降低行動門檻 */}
+          <ol className="flex items-center gap-0 pt-3 max-w-md">
+            {["點選部位", "安全確認", "描述感覺", "看見結果"].map((s, i, arr) => (
               <li key={s} className="flex items-center flex-1 last:flex-none">
                 <span className="flex flex-col items-start gap-1.5">
                   <span className="w-2 h-2 rounded-full border border-[#009B8D] bg-white" />
@@ -268,38 +264,13 @@ function Intro({ onStart }: { onStart: () => void }) {
               </li>
             ))}
           </ol>
-          <div className="pt-2 grid grid-cols-3 gap-4 max-w-md">
-            {[
-              { n: "6", label: "疼痛部位" },
-              { n: "41", label: "常見狀況" },
-              { n: "10", label: "北桃竹院所" },
-            ].map((s) => (
-              <div key={s.label} className="border-l-2 border-[#E0F5F2] pl-3">
-                <div
-                  className="text-2xl font-bold text-[#009B8D]"
-                  style={{ fontFamily: "'Montserrat','Noto Sans TC',sans-serif" }}
-                >
-                  {s.n}
-                </div>
-                <div className="text-xs text-[#7A8886] mt-0.5">{s.label}</div>
-              </div>
-            ))}
-          </div>
         </div>
-        <div className="hidden lg:block">
-          <div className="bg-white border border-[#E4ECEA] p-6 relative">
-            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-[#009B8D] via-[#009B8D]/30 to-transparent" />
-            <div className="flex items-baseline justify-between mb-3 px-1">
-              <span className="text-[11px] tracking-[0.22em] font-semibold text-[#6B7C79]">樂智康疼痛地圖</span>
-              <span className="text-[10px] tracking-wider text-[#B8C4C1]" style={{ fontFamily: "'Montserrat',sans-serif" }}>PAIN ATLAS</span>
-            </div>
-            <BodyMap onSelect={() => onStart()} />
-          </div>
+        {/* 手機也顯示人體圖：點圖即開始，降低進入門檻 */}
+        <div className="bg-white border border-[#E4ECEA] p-4 sm:p-6 relative">
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-[#009B8D] via-[#009B8D]/30 to-transparent" />
+          <BodyMap onSelect={() => onStart()} />
         </div>
       </div>
-      <p className="mt-10 text-xs text-[#9AA8A5] max-w-lg leading-relaxed">
-        本工具提供的是「自我評估參考」，並非正式醫療診斷。結果僅協助你理解可能的原因，實際診斷仍需由醫師當面評估。
-      </p>
     </section>
   );
 }
@@ -317,11 +288,11 @@ function RegionSelect({
       <div className="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-start">
         <div className="space-y-6 lg:sticky lg:top-28">
           <SectionMark>STEP 1</SectionMark>
-          <h2 className="text-[clamp(24px,4vw,36px)] font-black leading-snug text-[#1F2D2A]">
-            哪個部位在痛？
+          <h2 className="text-[clamp(24px,4vw,34px)] font-black leading-snug text-[#1F2D2A]">
+            哪裡最痛？點給我們看。
           </h2>
           <p className="text-[16px] leading-[1.85] text-[#4A4A4A]">
-            直接點人體圖上的部位，或從右側清單選擇。不確定的話，選「最痛的那一區」就好。
+            直接點人體圖，或從清單選擇。痛很多地方？先選最困擾你的那一區就好。
           </p>
           <button
             onClick={onBack}
@@ -430,7 +401,7 @@ function GuidePage({ guideId, onBack }: { guideId: string; onBack: () => void })
       <div className="space-y-6">
         <SectionMark>就醫指引</SectionMark>
         <h2 className="text-[clamp(24px,4vw,34px)] font-black leading-snug text-[#1F2D2A]">
-          {info.title}：這不在骨科評估範圍，但我們告訴你下一步
+          {info.title}：建議先由這些科別幫你確認
         </h2>
         <p className="text-[16px] leading-[1.85] text-[#4A4A4A]">{info.lead}</p>
 
@@ -503,10 +474,10 @@ function RedFlagCheck({
       <div className="space-y-6">
         <SectionMark>STEP 2 · 安全確認</SectionMark>
         <h2 className="text-[clamp(24px,4vw,34px)] font-black leading-snug text-[#1F2D2A]">
-          先確認一件重要的事
+          繼續之前，先確認你的安全
         </h2>
         <p className="text-[16px] leading-[1.85] text-[#4A4A4A]">
-          以下是需要「盡快就醫、不適合自我評估」的警訊。請問你目前有沒有下列任何一種情況？
+          下列情況屬於需要盡快就醫的警訊。花 10 秒看一下——你目前有其中任何一項嗎？
         </p>
 
         <div className="bg-white border border-[#F0D9D4] border-l-2 border-l-[#D9634E] p-6 space-y-3.5">
@@ -523,7 +494,7 @@ function RedFlagCheck({
             onClick={onSafe}
             className="px-6 py-4 bg-[#009B8D] text-white font-bold text-base hover:bg-[#007A6E] active:scale-[0.98] transition-all duration-150"
           >
-            都沒有，繼續評估
+            都沒有，安心繼續
           </button>
           <button
             onClick={onWarning}
@@ -747,11 +718,10 @@ function ResultPage({
         <div className="bg-[#1F2D2A] p-7 sm:p-8 space-y-4 relative">
           <div className="absolute top-0 left-0 w-16 h-[3px] bg-[#009B8D]" />
           <h3 className="text-xl font-bold text-white leading-snug">
-            看完還是不確定？不用自己當醫師。
+            知道可能的原因了，接下來讓醫師確認。
           </h3>
           <p className="text-[15px] leading-[1.85] text-[#B8CFCB]">
-            自我評估只是第一步。描述你的感覺，讓醫師用超音波看清楚問題在哪——樂智康在北桃竹有
-            10 間復健科院所，離你最近的那間就能安排。
+            把你剛剛的評估結果傳給我們，醫師用超音波幫你看清楚問題在哪。離你最近的院所，就能安排。
           </p>
           <a
             href={lineUrl(region.lineCampaign)}
@@ -760,7 +730,7 @@ function ResultPage({
             className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#009B8D] text-white font-bold hover:bg-[#00B3A3] active:scale-[0.97] transition-all duration-150"
           >
             <MessageCircle className="w-4.5 h-4.5" />
-            LINE 預約，找離你最近的院所
+            用 LINE 傳給醫師，安排看診
           </a>
         </div>
 
