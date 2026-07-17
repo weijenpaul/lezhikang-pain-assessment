@@ -13,30 +13,31 @@ export interface BodyMapProps {
 }
 
 const TEAL = "#009B8D";
-// ★ 交班設定：將 assets/ 資料夾的 18 張圖上傳到 Zenbu 後，只需修改下面這一個常數。
-// 例：圖片放在 https://sharp-falcon-88717.zenbu.space/images/pain/ 則改為 "/images/pain"。
-const ASSET_BASE = "https://cdn.jsdelivr.net/gh/weijenpaul/lezhikang-pain-assessment@v1/assets/pain";
+
+// ★ 交班設定：圖片資產基礎路徑——本站部署走 jsDelivr（v2 遮罩自 tag v6 起提供）
+const ASSET_BASE = "https://cdn.jsdelivr.net/gh/weijenpaul/lezhikang-pain-assessment@v6/assets/pain";
+
 const FRONT_IMG = `${ASSET_BASE}/body-front.png`;
 const BACK_IMG = `${ASSET_BASE}/body-back.png`;
 
 /** 像素級貼合的部位高亮遮罩（由底圖輪廓自動提取，teal 填色 PNG） */
 const MASK_IMG: Record<string, string> = {
-  "f-head": `${ASSET_BASE}/mask-f-head.png`,
-  "f-shoulder": `${ASSET_BASE}/mask-f-shoulder.png`,
-  "f-chest": `${ASSET_BASE}/mask-f-chest.png`,
-  "f-abdomen": `${ASSET_BASE}/mask-f-abdomen.png`,
-  "f-arm": `${ASSET_BASE}/mask-f-arm.png`,
-  "f-thigh": `${ASSET_BASE}/mask-f-thigh.png`,
-  "f-knee": `${ASSET_BASE}/mask-f-knee.png`,
-  "f-leg": `${ASSET_BASE}/mask-f-leg.png`,
-  "b-head": `${ASSET_BASE}/mask-b-head.png`,
-  "b-upperback": `${ASSET_BASE}/mask-b-upperback.png`,
-  "b-lowback": `${ASSET_BASE}/mask-b-lowback.png`,
-  "b-pelvis": `${ASSET_BASE}/mask-b-pelvis.png`,
-  "b-arm": `${ASSET_BASE}/mask-b-arm.png`,
-  "b-thigh": `${ASSET_BASE}/mask-b-thigh.png`,
-  "b-knee": `${ASSET_BASE}/mask-b-knee.png`,
-  "b-leg": `${ASSET_BASE}/mask-b-leg.png`,
+  "f-head": `${ASSET_BASE}/mask-f-head-v2.png`,
+  "f-shoulder": `${ASSET_BASE}/mask-f-shoulder-v2.png`,
+  "f-chest": `${ASSET_BASE}/mask-f-chest-v2.png`,
+  "f-abdomen": `${ASSET_BASE}/mask-f-abdomen-v2.png`,
+  "f-arm": `${ASSET_BASE}/mask-f-arm-v2.png`,
+  "f-thigh": `${ASSET_BASE}/mask-f-thigh-v2.png`,
+  "f-knee": `${ASSET_BASE}/mask-f-knee-v2.png`,
+  "f-leg": `${ASSET_BASE}/mask-f-leg-v2.png`,
+  "b-head": `${ASSET_BASE}/mask-b-head-v2.png`,
+  "b-upperback": `${ASSET_BASE}/mask-b-upperback-v2.png`,
+  "b-lowback": `${ASSET_BASE}/mask-b-lowback-v2.png`,
+  "b-pelvis": `${ASSET_BASE}/mask-b-pelvis-v2.png`,
+  "b-arm": `${ASSET_BASE}/mask-b-arm-v2.png`,
+  "b-thigh": `${ASSET_BASE}/mask-b-thigh-v2.png`,
+  "b-knee": `${ASSET_BASE}/mask-b-knee-v2.png`,
+  "b-leg": `${ASSET_BASE}/mask-b-leg-v2.png`,
 };
 
 const VW = 816;
@@ -338,10 +339,10 @@ export default function BodyMap({ onSelect }: BodyMapProps) {
                     y1={z.labelY - 7}
                     x2={lineX2}
                     y2={z.labelY - 7}
-                    stroke={active ? TEAL : "#B8CFCB"}
+                    stroke={active ? TEAL : "#C2D2CF"}
                     strokeWidth="2"
                   />
-                  {/* hover 時標籤反白成 teal 膠囊，遠比單純變粗明顯 */}
+                  {/* hover 時標籤反白成 teal 膠囊（2026-07-18 惟仁定案），非 hover 統一 #3D4F4C */}
                   {active && (
                     <rect
                       x={
@@ -361,7 +362,7 @@ export default function BodyMap({ onSelect }: BodyMapProps) {
                     y={z.labelY}
                     fontSize="26"
                     fontWeight={active ? 700 : 500}
-                    fill={active ? "#FFFFFF" : z.guide ? "#93A5A2" : "#546965"}
+                    fill={active ? "#FFFFFF" : "#3D4F4C"}
                     textAnchor={z.labelSide === "right" ? "start" : "end"}
                     style={{ fontFamily: "'Noto Sans TC', sans-serif" }}
                   >
@@ -372,8 +373,8 @@ export default function BodyMap({ onSelect }: BodyMapProps) {
             );
           })}
         </svg>
-        <p className="text-center text-xs text-[#9AA8A5] mt-1">
-          全身皆可點選．虛線區域為非骨科範圍，點選後將提供就醫指引
+        <p className="text-center text-xs text-[#8A9995] mt-1 tracking-wide">
+          全身皆可點選，點對應部位即可開始
         </p>
       </div>
     </div>

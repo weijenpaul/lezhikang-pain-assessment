@@ -36,6 +36,8 @@ export interface ResultInfo {
 }
 
 export const BLOG_BASE = "https://sharp-falcon-88717.zenbu.space/blog";
+/** ★ 交班設定：院所頁網址（所有 CTA 皆導向此頁） */
+export const LOCATIONS_URL = "https://sharp-falcon-88717.zenbu.space/locations";
 export const LINE_BASE =
   "https://line.me/R/ti/p/@wjs1014p?utm_source=new_site&utm_medium=pain&utm_campaign=";
 
@@ -733,6 +735,11 @@ export function getQuestion(region: Region, qid: string): Question | undefined {
 
 export function lineUrl(campaign: string): string {
   return `${LINE_BASE}${campaign}`;
+}
+
+/** 院所頁連結：現行 CTA 統一導向找院所頁（不用 LINE） */
+export function locationsUrl(): string {
+  return LOCATIONS_URL;
 }
 
 export function articleUrl(slug: string): string {
