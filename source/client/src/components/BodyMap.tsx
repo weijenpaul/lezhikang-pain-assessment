@@ -6,7 +6,7 @@
  * 手臂外緣 y235:275→y535:180-635(手)、軀幹內緣 y295:320/494 → y495:312/502、
  * 胯下 y~580、腿 y595-995（外緣 306/508、內緣膝處 366/446）、足 y995-1035 x284-530
  */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface BodyMapProps {
   onSelect: (regionId: string) => void;
@@ -223,8 +223,20 @@ const zones: ZoneDef[] = [
 export default function BodyMap({ onSelect }: BodyMapProps) {
   const [view, setView] = useState<"front" | "back">("front");
   const [hovered, setHovered] = useState<string | null>(null);
+  const [baseFailed, setBaseFailed] = useState<Record<string, boolean>>({});
+
+  // 預載背面視角 9 張（底圖 + 8 遮罩），切換視角零延遲
+  useEffect(() => {
+    [BACK_IMG, ...zones.filter((z) => z.view === "back").map((z) => MASK_IMG[z.key])]
+      .filter(Boolean)
+      .forEach((src) => {
+        const img = new Image();
+        img.src = src;
+      });
+  }, []);
 
   const visibleZones = zones.filter((z) => z.view === view);
+  const showFallback = !!baseFailed[view];
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -269,6 +281,7 @@ export default function BodyMap({ onSelect }: BodyMapProps) {
             width={VW}
             height={VH}
             preserveAspectRatio="xMidYMid meet"
+            onError={() => setBaseFailed((f) => ({ ...f, [view]: true }))}
           />
           {/* 遮罩高亮圖層：與底圖像素貼合，hover/點選時亮起 */}
           {visibleZones.map((z) => (
@@ -307,9 +320,10 @@ export default function BodyMap({ onSelect }: BodyMapProps) {
               >
                 <path
                   d={z.d}
-                  fill="#ffffff"
-                  fillOpacity={0}
-                  stroke="none"
+                  fill={showFallback ? "#E0F5F2" : "#ffffff"}
+                  fillOpacity={showFallback ? (active ? 0.9 : 0.55) : 0}
+                  stroke={showFallback ? "#7FBDB6" : "none"}
+                  strokeWidth={showFallback ? 2 : 0}
                   style={{ cursor: "pointer", pointerEvents: "all" }}
                 />
                 <g

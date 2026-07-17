@@ -296,7 +296,7 @@ function Intro({ onStart }: { onStart: () => void }) {
           <div className="pt-2 grid grid-cols-3 gap-4 max-w-md">
             {[
               { n: "6", label: "疼痛部位" },
-              { n: "41", label: "常見診斷" },
+              { n: "41", label: "常見狀況" },
               { n: "10", label: "北桃竹院所" },
             ].map((s) => (
               <div key={s.label} className="border-l-2 border-[#E0F5F2] pl-3">
@@ -407,6 +407,7 @@ const GUIDE_INFO: Record<
       "鼻竇炎、牙科問題、顳顎關節障礙",
     ],
     advice: [
+      { dept: "急診", when: "一生最痛的突發劇烈頭痛、頭痛合併單側無力口齒不清或意識改變、頭部外傷後頭痛 — 請立即就醫" },
       { dept: "神經內科", when: "反覆頭痛、單側搏動性疼痛、伴隨噁心畏光" },
       { dept: "復健科", when: "頭痛伴隨肩頸痠痛僵硬、低頭工作後加劇" },
       { dept: "耳鼻喉科／牙科", when: "伴隨鼻塞、臉頰壓痛或牙齒疼痛" },
@@ -437,6 +438,7 @@ const GUIDE_INFO: Record<
       "婦科問題（經痛、卵巢囊腫等）",
     ],
     advice: [
+      { dept: "急診", when: "劇烈持續腹痛、腹部僵硬壓了更痛、吐血或解黑便血便、可能懷孕且單側下腹劇痛 — 請立即就醫" },
       { dept: "腸胃肝膽科", when: "上腹痛、伴隨噁心、食欲不振" },
       { dept: "泌尿科", when: "單側腰腹絞痛、解尿灼熱或血尿" },
       { dept: "婦產科", when: "下腹痛與月經週期相關" },
@@ -578,17 +580,17 @@ function RedFlagWarning({ onRestart }: { onRestart: () => void }) {
         </div>
         <h2 className="text-2xl font-black text-[#1F2D2A]">請盡快就醫，不要等</h2>
         <p className="text-[16px] leading-[1.9] text-[#4A4A4A] text-left">
-          你勾選的情況屬於醫療上的「危險警訊」，可能代表神經受到嚴重壓迫、感染或其他需要立即處理的問題。這已經超出自我評估的範圍——請直接前往醫院就診，或立即聯繫我們安排優先看診。
+          你勾選的情況屬於醫療上的「危險警訊」，可能代表神經受到嚴重壓迫、感染或其他需要立即處理的問題。這已經超出自我評估的範圍——請立即前往急診或醫院就診。就醫後若需復健追蹤，歡迎 LINE 聯繫。
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
           <a
             href={lineUrl("pain-redflag")}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#D9634E] text-white font-bold hover:bg-[#C4523E] active:scale-[0.98] transition-all"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-[#E4ECEA] text-[#4A4A4A] font-medium hover:border-[#009B8D] hover:text-[#009B8D] transition-all"
           >
             <MessageCircle className="w-4.5 h-4.5" />
-            LINE 聯繫，安排優先看診
+            就醫後需復健追蹤？LINE 我們
           </a>
           <button
             onClick={onRestart}

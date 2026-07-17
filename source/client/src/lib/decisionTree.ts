@@ -1,7 +1,7 @@
 /**
  * 樂智康疼痛自我評估系統 — 決策樹資料
  * Style: Clinical Serenity — 資料層，無樣式
- * 41 個疾病終點（29 篇原有文章 hasArticle:true；12 篇新增 hasArticle:false）
+ * 41 個疾病終點，hasArticle 目前全為 false（文章上線後逐篇改 true）
  */
 
 export interface Option {
@@ -44,7 +44,7 @@ export const RED_FLAGS: string[] = [
   "會陰部（跨下區域）麻木",
   "手腳無力越來越明顯（垂足、握不住東西）",
   "外傷後劇痛、變形、或完全無法出力",
-  "疼痛合併發燒、不明原因體重下降",
+  "疼痛合併發燒、不明原因體重下降，或曾罹患癌症",
   "夜間持續痛醒，怎麼休息都沒有緩解",
 ];
 
@@ -386,7 +386,7 @@ export const results: Record<string, ResultInfo> = {
     hasArticle: false,
     regionId: "neck-shoulder",
     summary:
-      "鈣質沉積在旋轉肌腱內，急性發作時肩膀劇痛、無法睡向患側。超音波可清楚看到鈣化點，體外震波與超音波導引治療效果良好。",
+      "鈣質沉積在旋轉肌腱內，急性發作時肩膀劇痛、無法睡向患側。超音波可清楚看到鈣化點，體外震波與超音波導引治療是常見的治療選項。",
   },
   result_rotator_cuff_tear: {
     name: "肩旋轉肌腱撕裂",
@@ -404,7 +404,7 @@ export const results: Record<string, ResultInfo> = {
     hasArticle: false,
     regionId: "neck-shoulder",
     summary:
-      "肩關節囊發炎沾黏，各方向活動都受限，連別人幫忙抬也抬不上去。及早介入關節囊擴張治療與復健，可大幅縮短病程。",
+      "肩關節囊發炎沾黏，各方向活動都受限，連別人幫忙抬也抬不上去。及早介入關節囊擴張治療與復健，有機會縮短病程。",
   },
   result_shoulder_impingement: {
     name: "肩夾擠症候群",
@@ -665,7 +665,7 @@ export const results: Record<string, ResultInfo> = {
     hasArticle: false,
     regionId: "knee",
     summary:
-      "膝蓋內側或外側副韌帶扭傷，有明確受傷病史、局部壓痛。多數等級可保守治療，增生療法可加速韌帶修復。",
+      "膝蓋內側或外側副韌帶扭傷，有明確受傷病史、局部壓痛。多數等級可保守治療，增生療法是部分患者的輔助治療選項。",
   },
   result_plantar_fasciitis: {
     name: "足底筋膜炎",
@@ -674,7 +674,7 @@ export const results: Record<string, ResultInfo> = {
     hasArticle: false,
     regionId: "leg-foot",
     summary:
-      "足底筋膜退化發炎，早上下床第一步最痛。震波治療、足弓支撐與伸展運動三管齊下，效果最好。",
+      "足底筋膜退化發炎，早上下床第一步最痛。震波治療、足弓支撐與伸展運動三管齊下是常見的治療組合。",
   },
   result_ankle_sprain: {
     name: "腳踝韌帶扭傷",
@@ -692,7 +692,7 @@ export const results: Record<string, ResultInfo> = {
     hasArticle: false,
     regionId: "leg-foot",
     summary:
-      "腳後跟上方的阿基里斯腱因過度負荷退化發炎，跑跳後疼痛僵硬。離心訓練與震波是實證等級最高的治療。",
+      "腳後跟上方的阿基里斯腱因過度負荷退化發炎，跑跳後疼痛僵硬。離心訓練與震波治療有較充分的實證支持。",
   },
   result_calf_strain: {
     name: "小腿拉傷（網球腿）",
@@ -719,7 +719,7 @@ export const results: Record<string, ResultInfo> = {
     hasArticle: false,
     regionId: "leg-foot",
     summary:
-      "前腳掌的趾間神經增厚，走路像踩到石頭、腳趾麻刺，穿窄鞋加重。超音波可直接看到神經瘤，導引注射效果良好。",
+      "前腳掌的趾間神經增厚，走路像踩到石頭、腳趾麻刺，穿窄鞋加重。超音波可直接看到神經瘤，導引注射是常見的治療選項。",
   },
 };
 
