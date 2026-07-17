@@ -341,12 +341,27 @@ export default function BodyMap({ onSelect }: BodyMapProps) {
                     stroke={active ? TEAL : "#B8CFCB"}
                     strokeWidth="2"
                   />
+                  {/* hover 時標籤反白成 teal 膠囊，遠比單純變粗明顯 */}
+                  {active && (
+                    <rect
+                      x={
+                        z.labelSide === "right"
+                          ? textX - 14
+                          : textX - z.label.length * 26 - 14
+                      }
+                      y={z.labelY - 27}
+                      width={z.label.length * 26 + 28}
+                      height={40}
+                      rx={20}
+                      fill={TEAL}
+                    />
+                  )}
                   <text
                     x={textX}
                     y={z.labelY}
                     fontSize="26"
                     fontWeight={active ? 700 : 500}
-                    fill={active ? TEAL : z.guide ? "#93A5A2" : "#546965"}
+                    fill={active ? "#FFFFFF" : z.guide ? "#93A5A2" : "#546965"}
                     textAnchor={z.labelSide === "right" ? "start" : "end"}
                     style={{ fontFamily: "'Noto Sans TC', sans-serif" }}
                   >

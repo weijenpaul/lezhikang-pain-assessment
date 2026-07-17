@@ -101,35 +101,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#FAFAF8] text-[#2B3634]" style={{ fontFamily: "'Noto Sans TC', sans-serif" }}>
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-lg border-b border-[#E4ECEA]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <a href="https://sharp-falcon-88717.zenbu.space" aria-label="樂智康醫學首頁">
-            <img src={LOGO} alt="樂智康醫學" className="h-10 sm:h-11 w-auto" />
-          </a>
-          <div className="flex items-center gap-5">
-            <span className="hidden sm:inline text-[11px] tracking-[0.18em] text-[#9AA8A5] font-medium">
-              疼痛自我評估
-            </span>
-            <a
-              href={lineUrl("pain-header")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#009B8D] hover:text-[#007A6E] transition-colors"
-            >
-              <MessageCircle className="w-4 h-4" />
-              LINE 預約
-            </a>
-          </div>
-        </div>
-        {/* 進度軌：細青綠線，從首屏即可見 */}
-        <div className="h-[2px] bg-[#EDF3F1]">
-          <div
-            className="h-full bg-[#009B8D] transition-all duration-500 ease-out"
-            style={{ width: `${Math.max(progress, 4)}%` }}
-          />
-        </div>
-      </header>
+      {/* App 頁首已移除（站台 chrome header 供品牌與 LINE 入口）；保留細進度軌 */}
+      <div className="sticky top-0 z-40 h-[3px] bg-[#EDF3F1]">
+        <div
+          className="h-full bg-[#009B8D] transition-all duration-500 ease-out"
+          style={{ width: `${Math.max(progress, 4)}%` }}
+        />
+      </div>
 
       {/* 步驟指示 */}
       {step.stage !== "intro" && (
@@ -241,9 +219,6 @@ export default function Home() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-center space-y-2">
           <p className="text-xs text-[#9AA8A5] leading-relaxed">
             本頁為衛教資訊與自我評估參考，不能取代醫師當面診斷。若症狀持續或加劇，請盡速就醫。
-          </p>
-          <p className="text-xs text-[#B8C4C1]">
-            © 樂智康醫學 Wonderful Wisdom Wellness · 串起北桃竹 10 間復健科院所
           </p>
         </div>
       </footer>
