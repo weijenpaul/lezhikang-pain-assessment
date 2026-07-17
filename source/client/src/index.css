@@ -1,4 +1,6 @@
-@import "tailwindcss";
+/* important：zenbu 站台的未分層 button/border reset 會壓過 @layer utilities，
+   全部 utilities 加 !important 才能在站內嵌入時贏回樣式（紅隊 2026-07-18 定案） */
+@import "tailwindcss" important;
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
