@@ -1,0 +1,42 @@
+﻿region_id,region_name,line_campaign,condition_name_zh,condition_name_en,slug,article_url,has_article
+neck-shoulder,頸肩,pain-shoulder-neck,急性落枕（頸部肌肉痙攣）,Acute Wry Neck,acute-wry-neck,https://sharp-falcon-88717.zenbu.space/blog/acute-wry-neck,false
+neck-shoulder,頸肩,pain-shoulder-neck,鈣化性肌腱炎,Calcific Tendinitis,calcific-tendinitis,https://sharp-falcon-88717.zenbu.space/blog/calcific-tendinitis,false
+neck-shoulder,頸肩,pain-shoulder-neck,頸椎神經壓迫,Cervical Radiculopathy,cervical-radiculopathy,https://sharp-falcon-88717.zenbu.space/blog/cervical-radiculopathy,false
+neck-shoulder,頸肩,pain-shoulder-neck,頸因性頭痛,Cervicogenic Headache,cervicogenic-headache,https://sharp-falcon-88717.zenbu.space/blog/cervicogenic-headache,false
+neck-shoulder,頸肩,pain-shoulder-neck,五十肩（沾黏性肩關節囊炎）,Frozen Shoulder,frozen-shoulder,https://sharp-falcon-88717.zenbu.space/blog/frozen-shoulder,false
+neck-shoulder,頸肩,pain-shoulder-neck,肩頸筋膜炎,Neck Myofascial Pain,neck-myofascial-pain,https://sharp-falcon-88717.zenbu.space/blog/neck-myofascial-pain,false
+neck-shoulder,頸肩,pain-shoulder-neck,膏肓痛（菱形肌筋膜炎）,Rhomboid / Interscapular Pain,rhomboid-pain,https://sharp-falcon-88717.zenbu.space/blog/rhomboid-pain,false
+neck-shoulder,頸肩,pain-shoulder-neck,肩旋轉肌腱撕裂,Rotator Cuff Tear,rotator-cuff-tear,https://sharp-falcon-88717.zenbu.space/blog/rotator-cuff-tear,false
+neck-shoulder,頸肩,pain-shoulder-neck,肩夾擠症候群,Shoulder Impingement,shoulder-impingement,https://sharp-falcon-88717.zenbu.space/blog/shoulder-impingement,false
+elbow-hand,手肘手腕,pain-elbow-hand,腕隧道症候群,Carpal Tunnel Syndrome,carpal-tunnel,https://sharp-falcon-88717.zenbu.space/blog/carpal-tunnel,false
+elbow-hand,手肘手腕,pain-elbow-hand,媽媽手（狄奎凡氏症）,De Quervain's Tenosynovitis,de-quervains,https://sharp-falcon-88717.zenbu.space/blog/de-quervains,false
+elbow-hand,手肘手腕,pain-elbow-hand,腕部腱鞘囊腫,Ganglion Cyst,ganglion-cyst,https://sharp-falcon-88717.zenbu.space/blog/ganglion-cyst,false
+elbow-hand,手肘手腕,pain-elbow-hand,高爾夫球肘（肱骨內上髁炎）,Golfer's Elbow,golfers-elbow,https://sharp-falcon-88717.zenbu.space/blog/golfers-elbow,false
+elbow-hand,手肘手腕,pain-elbow-hand,網球肘（肱骨外上髁炎）,Tennis Elbow,tennis-elbow,https://sharp-falcon-88717.zenbu.space/blog/tennis-elbow,false
+elbow-hand,手肘手腕,pain-elbow-hand,TFCC 損傷（三角纖維軟骨複合體）,TFCC Injury,tfcc-injury,https://sharp-falcon-88717.zenbu.space/blog/tfcc-injury,false
+elbow-hand,手肘手腕,pain-elbow-hand,板機指,Trigger Finger,trigger-finger,https://sharp-falcon-88717.zenbu.space/blog/trigger-finger,false
+low-back,下背腰部,pain-low-back,閃到腰（急性下背拉傷）,Acute Low Back Strain,acute-low-back-pain,https://sharp-falcon-88717.zenbu.space/blog/acute-low-back-pain,false
+low-back,下背腰部,pain-low-back,肌筋膜疼痛症候群（慢性下背痛）,Myofascial Pain Syndrome,back-myofascial-pain,https://sharp-falcon-88717.zenbu.space/blog/back-myofascial-pain,false
+low-back,下背腰部,pain-low-back,腰椎間盤突出,Lumbar Disc Herniation,herniated-disc,https://sharp-falcon-88717.zenbu.space/blog/herniated-disc,false
+low-back,下背腰部,pain-low-back,薦髂關節炎,Sacroiliac Joint Dysfunction,sacroiliac-joint-pain,https://sharp-falcon-88717.zenbu.space/blog/sacroiliac-joint-pain,false
+low-back,下背腰部,pain-low-back,成人脊椎側彎,Adult Scoliosis,scoliosis,https://sharp-falcon-88717.zenbu.space/blog/scoliosis,false
+low-back,下背腰部,pain-low-back,腰椎神經壓迫（椎管狹窄）,Lumbar Spinal Stenosis,spinal-stenosis,https://sharp-falcon-88717.zenbu.space/blog/spinal-stenosis,false
+low-back,下背腰部,pain-low-back,脊椎滑脫,Spondylolisthesis,spondylolisthesis,https://sharp-falcon-88717.zenbu.space/blog/spondylolisthesis,false
+pelvis-thigh,髖與大腿,pain-hip-thigh,大轉子疼痛症候群（髖部滑囊炎）,Greater Trochanteric Pain Syndrome,greater-trochanteric-pain,https://sharp-falcon-88717.zenbu.space/blog/greater-trochanteric-pain,false
+pelvis-thigh,髖與大腿,pain-hip-thigh,髖關節退化性關節炎,Hip Osteoarthritis,hip-osteoarthritis,https://sharp-falcon-88717.zenbu.space/blog/hip-osteoarthritis,false
+pelvis-thigh,髖與大腿,pain-hip-thigh,髂脛束症候群,IT Band Syndrome,itbs,https://sharp-falcon-88717.zenbu.space/blog/itbs,false
+pelvis-thigh,髖與大腿,pain-hip-thigh,梨狀肌症候群,Piriformis Syndrome,piriformis-syndrome,https://sharp-falcon-88717.zenbu.space/blog/piriformis-syndrome,false
+pelvis-thigh,髖與大腿,pain-hip-thigh,坐骨神經痛,Sciatica,sciatica,https://sharp-falcon-88717.zenbu.space/blog/sciatica,false
+knee,膝蓋,pain-knee,十字韌帶損傷,ACL Injury,acl-injury,https://sharp-falcon-88717.zenbu.space/blog/acl-injury,false
+knee,膝蓋,pain-knee,退化性膝關節炎,Knee Osteoarthritis,knee-osteoarthritis,https://sharp-falcon-88717.zenbu.space/blog/knee-osteoarthritis,false
+knee,膝蓋,pain-knee,膝蓋韌帶損傷（內外側副韌帶）,MCL / LCL Injury,mcl-lcl-injury,https://sharp-falcon-88717.zenbu.space/blog/mcl-lcl-injury,false
+knee,膝蓋,pain-knee,半月板損傷,Meniscus Tear,meniscus-tear,https://sharp-falcon-88717.zenbu.space/blog/meniscus-tear,false
+knee,膝蓋,pain-knee,髕腱炎（跳躍膝）,Patellar Tendinitis,patellar-tendinitis,https://sharp-falcon-88717.zenbu.space/blog/patellar-tendinitis,false
+knee,膝蓋,pain-knee,鵝足滑囊炎,Pes Anserine Bursitis,pes-anserine-bursitis,https://sharp-falcon-88717.zenbu.space/blog/pes-anserine-bursitis,false
+knee,膝蓋,pain-knee,髕骨股骨疼痛症候群,Patellofemoral Pain Syndrome,pfps,https://sharp-falcon-88717.zenbu.space/blog/pfps,false
+leg-foot,小腿足踝,pain-leg-foot,跟腱炎（阿基里斯腱炎）,Achilles Tendinitis,achilles-tendinitis,https://sharp-falcon-88717.zenbu.space/blog/achilles-tendinitis,false
+leg-foot,小腿足踝,pain-leg-foot,腳踝韌帶扭傷,Ankle Sprain,ankle-sprain,https://sharp-falcon-88717.zenbu.space/blog/ankle-sprain,false
+leg-foot,小腿足踝,pain-leg-foot,小腿拉傷（網球腿）,Calf Strain,calf-strain,https://sharp-falcon-88717.zenbu.space/blog/calf-strain,false
+leg-foot,小腿足踝,pain-leg-foot,拇趾外翻,Hallux Valgus,hallux-valgus,https://sharp-falcon-88717.zenbu.space/blog/hallux-valgus,false
+leg-foot,小腿足踝,pain-leg-foot,莫頓氏神經瘤,Morton's Neuroma,mortons-neuroma,https://sharp-falcon-88717.zenbu.space/blog/mortons-neuroma,false
+leg-foot,小腿足踝,pain-leg-foot,足底筋膜炎,Plantar Fasciitis,plantar-fasciitis,https://sharp-falcon-88717.zenbu.space/blog/plantar-fasciitis,false
