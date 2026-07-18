@@ -178,3 +178,40 @@
     }
   }
 }
+/* ===== /kids 兒童發展檢測：作用域主題（墨綠系，不影響 /pain） ===== */
+.kids-scope {
+  --primary: #0E7C6B;
+  --primary-foreground: #FFFFFF;
+  --background: #FAF9F6;
+  --foreground: #26332F;
+  --card: #FFFFFF;
+  --card-foreground: #26332F;
+  --secondary: #F0EEE8;
+  --secondary-foreground: #4A554F;
+  --accent: #E6F2EF;
+  --accent-foreground: #0B5A4E;
+  --muted: #F0EEE8;
+  --muted-foreground: #6E7B76;
+  --destructive: #D9705F;
+  --destructive-foreground: #FFFFFF;
+  --border: #E5E2DA;
+  --ring: #0E7C6B;
+}
+/* Tailwind v4 的 container 不自動置中，作用域內補上 */
+.kids-scope .container {
+  width: 100%;
+  max-width: 1152px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 32px);
+}
+/* 題目卡片入場：200ms 右側滑入（ideas.md 動效規範） */
+@keyframes kids-card-in {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: none; }
+}
+.kids-scope .quiz-card-enter {
+  animation: kids-card-in 200ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .kids-scope .quiz-card-enter { animation: none; }
+}
