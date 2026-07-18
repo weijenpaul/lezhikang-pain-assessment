@@ -1,7 +1,7 @@
 /**
  * 樂智康疼痛自我評估系統 — 決策樹資料
  * Style: Clinical Serenity — 資料層，無樣式
- * 41 個疾病終點，hasArticle 目前全為 false（文章上線後逐篇改 true）
+ * 41 個疾病終點，hasArticle 已全數開通（41 篇衛教文章 2026-07-18 上架 /blog/{slug}）
  */
 
 export interface Option {
@@ -358,7 +358,7 @@ export const results: Record<string, ResultInfo> = {
     name: "急性落枕（頸部肌肉痙攣）",
     englishName: "Acute Wry Neck",
     slug: "acute-wry-neck",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "neck-shoulder",
     summary:
       "睡姿不良或突然轉頭後，頸部肌肉急性痙攣，造成脖子卡住、轉動劇痛。多數在數天內緩解，但反覆發作可能與頸椎小面關節問題有關。",
@@ -367,7 +367,7 @@ export const results: Record<string, ResultInfo> = {
     name: "頸因性頭痛",
     englishName: "Cervicogenic Headache",
     slug: "cervicogenic-headache",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "neck-shoulder",
     summary:
       "頭痛的根源其實在頸椎。長時間低頭、姿勢不良使上頸椎關節與肌肉緊繃，疼痛從後腦延伸到太陽穴或眼窩，常被誤認為偏頭痛。",
@@ -376,7 +376,7 @@ export const results: Record<string, ResultInfo> = {
     name: "頸椎神經壓迫",
     englishName: "Cervical Radiculopathy",
     slug: "cervical-radiculopathy",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "neck-shoulder",
     summary:
       "頸椎的椎間盤突出或骨刺壓迫神經根，疼痛與麻木感沿著神經一路延伸到手臂、手指，可能伴隨無力感。",
@@ -385,7 +385,7 @@ export const results: Record<string, ResultInfo> = {
     name: "鈣化性肌腱炎",
     englishName: "Calcific Tendinitis",
     slug: "calcific-tendinitis",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "neck-shoulder",
     summary:
       "鈣質沉積在旋轉肌腱內，急性發作時肩膀劇痛、無法睡向患側。超音波可清楚看到鈣化點，體外震波與超音波導引治療是常見的治療選項。",
@@ -394,7 +394,7 @@ export const results: Record<string, ResultInfo> = {
     name: "肩旋轉肌腱撕裂",
     englishName: "Rotator Cuff Tear",
     slug: "rotator-cuff-tear",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "neck-shoulder",
     summary:
       "包覆肩關節的旋轉肌腱部分或完全斷裂，手舉不起來、無力感明顯。超音波檢查可即時評估撕裂範圍，決定保守治療或進一步處置。",
@@ -403,7 +403,7 @@ export const results: Record<string, ResultInfo> = {
     name: "五十肩（沾黏性肩關節囊炎）",
     englishName: "Frozen Shoulder",
     slug: "frozen-shoulder",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "neck-shoulder",
     summary:
       "肩關節囊發炎沾黏，各方向活動都受限，連別人幫忙抬也抬不上去。及早介入關節囊擴張治療與復健，有機會縮短病程。",
@@ -412,7 +412,7 @@ export const results: Record<string, ResultInfo> = {
     name: "肩夾擠症候群",
     englishName: "Shoulder Impingement",
     slug: "shoulder-impingement",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "neck-shoulder",
     summary:
       "手舉到特定角度時，肌腱在肩峰下被夾擠產生疼痛（痛弧）。與姿勢、肩胛骨動作失衡有關，超音波可評估發炎與夾擠程度。",
@@ -421,7 +421,7 @@ export const results: Record<string, ResultInfo> = {
     name: "膏肓痛（菱形肌筋膜炎）",
     englishName: "Rhomboid / Interscapular Pain",
     slug: "rhomboid-pain",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "neck-shoulder",
     summary:
       "肩胛骨內側的頑固痠痛，久坐、打電腦後加重。常與頸椎神經、肌筋膜激痛點有關，「病入膏肓」其實有解。",
@@ -430,7 +430,7 @@ export const results: Record<string, ResultInfo> = {
     name: "肩頸筋膜炎",
     englishName: "Neck Myofascial Pain",
     slug: "neck-myofascial-pain",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "neck-shoulder",
     summary:
       "肩頸肌肉長期緊繃形成激痛點，按壓會有明顯痛點且可能傳導到其他部位。與姿勢、壓力、睡眠品質密切相關。",
@@ -439,7 +439,7 @@ export const results: Record<string, ResultInfo> = {
     name: "網球肘（肱骨外上髁炎）",
     englishName: "Tennis Elbow",
     slug: "tennis-elbow",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "elbow-hand",
     summary:
       "手肘外側肌腱因反覆使用而退化發炎，擰毛巾、提東西就痛。不只網球選手，家庭主婦與上班族更常見。",
@@ -448,7 +448,7 @@ export const results: Record<string, ResultInfo> = {
     name: "高爾夫球肘（肱骨內上髁炎）",
     englishName: "Golfer's Elbow",
     slug: "golfers-elbow",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "elbow-hand",
     summary:
       "手肘內側肌腱發炎，抓握、手腕彎曲用力時疼痛。常見於需要反覆抓握的工作與運動。",
@@ -457,7 +457,7 @@ export const results: Record<string, ResultInfo> = {
     name: "腕隧道症候群",
     englishName: "Carpal Tunnel Syndrome",
     slug: "carpal-tunnel",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "elbow-hand",
     summary:
       "正中神經在手腕處被壓迫，大拇指到中指麻木刺痛，夜間或騎機車時特別明顯。超音波可直接看到神經腫脹程度。",
@@ -466,7 +466,7 @@ export const results: Record<string, ResultInfo> = {
     name: "媽媽手（狄奎凡氏症）",
     englishName: "De Quervain's Tenosynovitis",
     slug: "de-quervains",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "elbow-hand",
     summary:
       "大拇指側手腕的肌腱腱鞘發炎，抱小孩、擰毛巾、滑手機都會痛。及早治療配合工學調整，恢復效果好。",
@@ -475,7 +475,7 @@ export const results: Record<string, ResultInfo> = {
     name: "板機指",
     englishName: "Trigger Finger",
     slug: "trigger-finger",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "elbow-hand",
     summary:
       "手指屈肌腱腱鞘增厚卡住，手指彎曲後卡住、伸直時「喀」一聲。超音波導引注射可精準處理，多數不需開刀。",
@@ -484,7 +484,7 @@ export const results: Record<string, ResultInfo> = {
     name: "TFCC 損傷（三角纖維軟骨複合體）",
     englishName: "TFCC Injury",
     slug: "tfcc-injury",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "elbow-hand",
     summary:
       "手腕小指側的軟骨結構受損，撐地、轉門把、擰瓶蓋時疼痛。常見於健身、瑜珈與跌倒撐地後，超音波與理學檢查可評估。",
@@ -493,7 +493,7 @@ export const results: Record<string, ResultInfo> = {
     name: "腕部腱鞘囊腫",
     englishName: "Ganglion Cyst",
     slug: "ganglion-cyst",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "elbow-hand",
     summary:
       "手腕背側或掌側出現的圓形腫塊，內含關節液，按壓痠痛或影響活動。超音波可確認性質，導引抽吸為常見處置。",
@@ -502,7 +502,7 @@ export const results: Record<string, ResultInfo> = {
     name: "閃到腰（急性下背拉傷）",
     englishName: "Acute Low Back Strain",
     slug: "acute-low-back-pain",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "low-back",
     summary:
       "搬重物或彎腰瞬間腰部劇痛、挺不直。多為肌肉或小面關節急性受傷，正確處置可加速恢復、避免變成慢性腰痛。",
@@ -511,7 +511,7 @@ export const results: Record<string, ResultInfo> = {
     name: "腰椎間盤突出",
     englishName: "Lumbar Disc Herniation",
     slug: "herniated-disc",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "low-back",
     summary:
       "椎間盤突出壓迫神經根，腰痛合併下肢放射痛麻，彎腰、久坐、咳嗽時加重。多數可透過保守治療改善，不一定需要開刀。",
@@ -520,7 +520,7 @@ export const results: Record<string, ResultInfo> = {
     name: "腰椎神經壓迫（椎管狹窄）",
     englishName: "Lumbar Spinal Stenosis",
     slug: "spinal-stenosis",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "low-back",
     summary:
       "椎管空間狹窄壓迫神經，走路走久腿痠麻痛、需要坐下休息（神經性跛行）。好發於中老年，治療選項多元。",
@@ -529,7 +529,7 @@ export const results: Record<string, ResultInfo> = {
     name: "脊椎滑脫",
     englishName: "Spondylolisthesis",
     slug: "spondylolisthesis",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "low-back",
     summary:
       "椎體往前滑移造成腰部不穩定，後仰時疼痛明顯、久站腰痠無力。核心肌群訓練與增生療法是重要的保守治療選項。",
@@ -538,7 +538,7 @@ export const results: Record<string, ResultInfo> = {
     name: "薦髂關節炎",
     englishName: "Sacroiliac Joint Dysfunction",
     slug: "sacroiliac-joint-pain",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "low-back",
     summary:
       "骨盆與脊椎交界的薦髂關節發炎或失能，痛在腰臀交界偏一側，翻身、上下車、單腳承重時明顯。",
@@ -547,7 +547,7 @@ export const results: Record<string, ResultInfo> = {
     name: "肌筋膜疼痛症候群（慢性下背痛）",
     englishName: "Myofascial Pain Syndrome",
     slug: "back-myofascial-pain",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "low-back",
     summary:
       "腰背肌肉的激痛點造成慢性痠痛，久坐久站加重。找出激痛點與誘發因子，配合治療與運動可有效改善。",
@@ -556,7 +556,7 @@ export const results: Record<string, ResultInfo> = {
     name: "成人脊椎側彎",
     englishName: "Adult Scoliosis",
     slug: "scoliosis",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "low-back",
     summary:
       "脊椎左右彎曲合併旋轉，成人常以腰背痠痛、高低肩、骨盆歪斜表現。評估彎曲角度後，運動治療與疼痛管理雙軌並行。",
@@ -565,7 +565,7 @@ export const results: Record<string, ResultInfo> = {
     name: "坐骨神經痛",
     englishName: "Sciatica",
     slug: "sciatica",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "pelvis-thigh",
     summary:
       "坐骨神經受刺激，疼痛麻木從腰臀沿大腿後側往下延伸。「坐骨神經痛」是症狀而非診斷——找出壓迫源頭才能對症治療。",
@@ -574,7 +574,7 @@ export const results: Record<string, ResultInfo> = {
     name: "梨狀肌症候群",
     englishName: "Piriformis Syndrome",
     slug: "piriformis-syndrome",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "pelvis-thigh",
     summary:
       "臀部深處的梨狀肌緊繃壓迫坐骨神經，久坐加重、屁股深處痠痛。與椎間盤問題的鑑別是治療關鍵。",
@@ -583,7 +583,7 @@ export const results: Record<string, ResultInfo> = {
     name: "髂脛束症候群",
     englishName: "IT Band Syndrome",
     slug: "itbs",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "pelvis-thigh",
     summary:
       "大腿外側的髂脛束過度緊繃，跑步、上下樓梯時大腿外側到膝蓋外側疼痛。跑者常見，與訓練量及臀肌力量有關。",
@@ -592,7 +592,7 @@ export const results: Record<string, ResultInfo> = {
     name: "髖關節退化性關節炎",
     englishName: "Hip Osteoarthritis",
     slug: "hip-osteoarthritis",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "pelvis-thigh",
     summary:
       "髖關節軟骨磨損，鼠蹊部深處疼痛、髖部活動卡緊，走久加重。及早介入可延緩退化、維持活動力。",
@@ -601,7 +601,7 @@ export const results: Record<string, ResultInfo> = {
     name: "大轉子疼痛症候群（髖部滑囊炎）",
     englishName: "Greater Trochanteric Pain Syndrome",
     slug: "greater-trochanteric-pain",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "pelvis-thigh",
     summary:
       "髖部外側的肌腱與滑囊發炎，側睡壓到會痛、走路上樓梯痠痛。與臀中肌肌腱病變密切相關，超音波可精準評估。",
@@ -610,7 +610,7 @@ export const results: Record<string, ResultInfo> = {
     name: "退化性膝關節炎",
     englishName: "Knee Osteoarthritis",
     slug: "knee-osteoarthritis",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "knee",
     summary:
       "膝關節軟骨磨損，上下樓梯痛、蹲下困難、關節僵硬。從運動治療、增生療法到 PRP，開刀前還有很多選項。",
@@ -619,7 +619,7 @@ export const results: Record<string, ResultInfo> = {
     name: "髕骨股骨疼痛症候群",
     englishName: "Patellofemoral Pain Syndrome",
     slug: "pfps",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "knee",
     summary:
       "膝蓋骨滑動軌跡異常造成的膝前痛，久坐起身、下樓梯時明顯。年輕族群與跑者最常見的膝痛，肌力訓練是治療核心。",
@@ -628,7 +628,7 @@ export const results: Record<string, ResultInfo> = {
     name: "髕腱炎（跳躍膝）",
     englishName: "Patellar Tendinitis",
     slug: "patellar-tendinitis",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "knee",
     summary:
       "膝蓋骨下方的髕腱因反覆跳躍負荷而退化發炎，籃球、排球運動員常見。離心訓練與震波治療證據充分。",
@@ -637,7 +637,7 @@ export const results: Record<string, ResultInfo> = {
     name: "鵝足滑囊炎",
     englishName: "Pes Anserine Bursitis",
     slug: "pes-anserine-bursitis",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "knee",
     summary:
       "膝蓋內側下方的鵝足滑囊發炎，上樓梯、起身時內側痛，常與退化性關節炎混淆或並存。超音波可明確區分。",
@@ -646,7 +646,7 @@ export const results: Record<string, ResultInfo> = {
     name: "十字韌帶損傷",
     englishName: "ACL Injury",
     slug: "acl-injury",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "knee",
     summary:
       "運動中扭轉受傷後膝蓋腫脹、不穩定、軟腳感。損傷程度決定治療方向，完整評估是第一步。",
@@ -655,7 +655,7 @@ export const results: Record<string, ResultInfo> = {
     name: "半月板損傷",
     englishName: "Meniscus Tear",
     slug: "meniscus-tear",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "knee",
     summary:
       "膝關節內的半月板軟骨撕裂，膝蓋卡卡、有時伸不直，蹲或旋轉時疼痛。許多類型可透過保守治療與再生注射改善。",
@@ -664,7 +664,7 @@ export const results: Record<string, ResultInfo> = {
     name: "膝蓋韌帶損傷（內外側副韌帶）",
     englishName: "MCL / LCL Injury",
     slug: "mcl-lcl-injury",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "knee",
     summary:
       "膝蓋內側或外側副韌帶扭傷，有明確受傷病史、局部壓痛。多數等級可保守治療，增生療法是部分患者的輔助治療選項。",
@@ -673,7 +673,7 @@ export const results: Record<string, ResultInfo> = {
     name: "足底筋膜炎",
     englishName: "Plantar Fasciitis",
     slug: "plantar-fasciitis",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "leg-foot",
     summary:
       "足底筋膜退化發炎，早上下床第一步最痛。震波治療、足弓支撐與伸展運動三管齊下是常見的治療組合。",
@@ -682,7 +682,7 @@ export const results: Record<string, ResultInfo> = {
     name: "腳踝韌帶扭傷",
     englishName: "Ankle Sprain",
     slug: "ankle-sprain",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "leg-foot",
     summary:
       "翻腳刀後腳踝外側腫痛。「扭到腳只要冰敷休息」是迷思——韌帶癒合品質決定會不會反覆扭傷，完整評估很重要。",
@@ -691,7 +691,7 @@ export const results: Record<string, ResultInfo> = {
     name: "跟腱炎（阿基里斯腱炎）",
     englishName: "Achilles Tendinitis",
     slug: "achilles-tendinitis",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "leg-foot",
     summary:
       "腳後跟上方的阿基里斯腱因過度負荷退化發炎，跑跳後疼痛僵硬。離心訓練與震波治療有較充分的實證支持。",
@@ -700,7 +700,7 @@ export const results: Record<string, ResultInfo> = {
     name: "小腿拉傷（網球腿）",
     englishName: "Calf Strain",
     slug: "calf-strain",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "leg-foot",
     summary:
       "運動中小腿突然像被打到一樣劇痛，多為腓腸肌內側頭撕裂。超音波可評估撕裂範圍，指引安全回場時程。",
@@ -709,7 +709,7 @@ export const results: Record<string, ResultInfo> = {
     name: "拇趾外翻",
     englishName: "Hallux Valgus",
     slug: "hallux-valgus",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "leg-foot",
     summary:
       "大拇趾根部向外偏移凸出，穿鞋摩擦疼痛、前足變寬。鞋具調整、足弓支撐與運動治療可減緩惡化與疼痛。",
@@ -718,7 +718,7 @@ export const results: Record<string, ResultInfo> = {
     name: "莫頓氏神經瘤",
     englishName: "Morton's Neuroma",
     slug: "mortons-neuroma",
-    hasArticle: false,
+    hasArticle: true,
     regionId: "leg-foot",
     summary:
       "前腳掌的趾間神經增厚，走路像踩到石頭、腳趾麻刺，穿窄鞋加重。超音波可直接看到神經瘤，導引注射是常見的治療選項。",
