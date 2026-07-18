@@ -182,7 +182,7 @@
 .kids-scope {
   --primary: #0E7C6B;
   --primary-foreground: #FFFFFF;
-  --background: #FAF9F6;
+  --background: #FAF7F0;
   --foreground: #26332F;
   --card: #FFFFFF;
   --card-foreground: #26332F;
@@ -214,4 +214,11 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .kids-scope .quiz-card-enter { animation: none; }
+}
+
+/* /kids D12：列印/儲存結果——只印結果卡與四面向分析 */
+@media print {
+  header, footer, nav { display: none !important; }
+  body { background: #ffffff !important; }
+  #result-card, #result-analysis { box-shadow: none !important; break-inside: avoid; }
 }
