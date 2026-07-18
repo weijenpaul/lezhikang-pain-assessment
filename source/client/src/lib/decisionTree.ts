@@ -738,8 +738,8 @@ export function lineUrl(campaign: string): string {
 }
 
 /** 院所頁連結：現行 CTA 統一導向找院所頁（不用 LINE） */
-export function locationsUrl(): string {
-  return LOCATIONS_URL;
+export function locationsUrl(from?: string): string {
+  return from ? `${LOCATIONS_URL}?from=${from}` : LOCATIONS_URL;
 }
 
 export function articleUrl(slug: string): string {

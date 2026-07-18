@@ -443,7 +443,7 @@ function GuidePage({ guideId, onBack }: { guideId: string; onBack: () => void })
 
         <div className="flex flex-wrap gap-3 pt-1">
           <a
-            href={locationsUrl()}
+            href={locationsUrl(`pain-guide-${guideId}`)}
             className="inline-flex items-center gap-2 px-7 py-3 bg-[#009B8D] text-white font-bold rounded-lg hover:bg-[#007A6E] active:scale-[0.97] transition-all duration-150"
           >
             <MapPin className="w-4.5 h-4.5" />
@@ -533,7 +533,7 @@ function RedFlagWarning({ onRestart }: { onRestart: () => void }) {
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
           <a
-            href={locationsUrl()}
+            href={locationsUrl("pain-redflag")}
             className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-[#E4ECEA] rounded-lg text-[#4A4A4A] font-medium hover:border-[#009B8D] hover:text-[#009B8D] transition-all"
           >
             <MapPin className="w-4.5 h-4.5" />
@@ -725,7 +725,7 @@ function ResultPage({
             醫師用超音波幫你看清楚問題在哪。北桃竹十間院所，選離你最近的就能安排。
           </p>
           <a
-            href={locationsUrl()}
+            href={locationsUrl(region.lineCampaign)}
             className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#009B8D] text-white font-bold rounded-lg hover:bg-[#007A6E] hover:shadow-lg hover:shadow-[#009B8D]/20 active:scale-[0.97] transition-all duration-150"
           >
             <MapPin className="w-4.5 h-4.5" />
