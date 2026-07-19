@@ -27,6 +27,7 @@ import {
   regions,
   results,
 } from "@/lib/decisionTree";
+import { TREATMENT_MAP, TREATMENT_INFO } from "@/lib/treatments";
 
 type Step =
   | { stage: "intro" }
@@ -712,6 +713,38 @@ function ResultPage({
                 </div>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* 常見免開刀治療方向（2026-07-19 對照表 v2；bundle 以 patch_pain_bundle_v14.py 注入等價區塊） */}
+        {(TREATMENT_MAP[result.slug] ?? []).length > 0 && (
+          <div className="space-y-3">
+            <p className="text-sm font-semibold text-[#7A8886]">
+              這類問題常見的免開刀治療方向：
+            </p>
+            <div className="grid gap-2.5">
+              {(TREATMENT_MAP[result.slug] ?? []).map((tid) => {
+                const t = TREATMENT_INFO[tid];
+                return (
+                  <a
+                    key={tid}
+                    href={articleUrl(t.slug)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white border border-[#E4ECEA] rounded-lg px-4 py-3 hover:border-[#009B8D] hover:shadow-sm transition-all flex items-center justify-between gap-3"
+                  >
+                    <div>
+                      <div className="text-sm font-bold text-[#1F2D2A]">{t.name}</div>
+                      <div className="text-xs text-[#7A8886] mt-1">{t.desc}</div>
+                    </div>
+                    <span className="text-[#009B8D] font-bold shrink-0">→</span>
+                  </a>
+                );
+              })}
+            </div>
+            <p className="text-xs leading-relaxed text-[#9AA8A5]">
+              每個人狀況不同，上面是這類問題常見的討論方向；適不適合，需由醫師評估後與你討論。
+            </p>
           </div>
         )}
 
