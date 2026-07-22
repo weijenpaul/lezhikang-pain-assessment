@@ -35,9 +35,9 @@ export interface ResultInfo {
   regionId: string;
 }
 
-export const BLOG_BASE = "https://sharp-falcon-88717.zenbu.space/blog";
+export const BLOG_BASE = "/blog";
 /** ★ 交班設定：院所頁網址（所有 CTA 皆導向此頁） */
-export const LOCATIONS_URL = "https://sharp-falcon-88717.zenbu.space/locations";
+export const LOCATIONS_URL = "/locations";
 export const LINE_BASE =
   "https://line.me/R/ti/p/@wjs1014p?utm_source=new_site&utm_medium=pain&utm_campaign=";
 

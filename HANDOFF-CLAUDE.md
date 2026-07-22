@@ -10,8 +10,8 @@
 
 將本交班包內的「疼痛自我評估系統」部署到 Zenbu 網站，**取代現有的 /pain 頁面**：
 
-- **目標網址**：`https://sharp-falcon-88717.zenbu.space/pain`
-- **衛教文章位置**（系統會連向這裡）：`https://sharp-falcon-88717.zenbu.space/blog/{slug}`
+- **目標網址**：`/pain`（同站相對路徑）
+- **衛教文章位置**（系統會連向這裡）：`/blog/{slug}`（同站相對路徑）
 
 這是一個純前端（無後端、無資料庫）的互動式評估工具。使用者點選人體圖上的疼痛部位 → 通過紅旗症狀安全篩查 → 回答症狀問題 → 獲得「最可能的問題」評估結果 → 導向對應的衛教文章與 LINE 預約。
 
@@ -71,7 +71,7 @@ claude-package/
 ## 5. 兩個關鍵常數（`source/client/src/lib/decisionTree.ts` 頂部）
 
 ```ts
-export const BLOG_BASE = "https://sharp-falcon-88717.zenbu.space/blog";
+export const BLOG_BASE = "/blog";
 export const LINE_BASE =
   "https://line.me/R/ti/p/@wjs1014p?utm_source=new_site&utm_medium=pain&utm_campaign=";
 ```

@@ -148,5 +148,5 @@ export function evaluate(
   };
 }
 
-export const LOCATIONS_URL = "https://sharp-falcon-88717.zenbu.space/locations";
-export const BLOG_URL = "https://sharp-falcon-88717.zenbu.space/blog";
+export const LOCATIONS_URL = "/locations";
+export const BLOG_URL = "/blog";
