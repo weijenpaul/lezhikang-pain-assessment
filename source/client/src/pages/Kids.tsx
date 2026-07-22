@@ -26,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { StepLiveRegion, useStepFocus } from "@/hooks/useStepFocus";
 import {
   Accordion,
   AccordionContent,
@@ -120,6 +121,9 @@ function Disclaimer({ className = "" }: { className?: string }) {
 
 export default function Kids() {
   const [mode, setMode] = useState<"landing" | "test">("landing");
+  const { announcement, containerRef } = useStepFocus(mode, {
+    context: "兒童發展檢測",
+  });
   const start = () => {
     setMode("test");
     window.scrollTo({ top: 0 });
@@ -133,7 +137,8 @@ export default function Kids() {
       className="kids-scope flex min-h-screen flex-col bg-background text-foreground"
       style={{ fontFamily: "'Noto Sans TC', sans-serif" }}
     >
-      <main className="flex-1">
+      <StepLiveRegion message={announcement} />
+      <main ref={containerRef} className="flex-1">
         {mode === "landing" ? (
           <Landing onStart={start} />
         ) : (
@@ -164,7 +169,7 @@ function Landing({ onStart }: { onStart: () => void }) {
               <FileCheck2 className="h-3.5 w-3.5" />
               參考國健署《兒童健康手冊》發展里程碑編製
             </p>
-            <h1 className="text-3xl font-black leading-snug text-foreground md:text-[2.6rem] md:leading-[1.3]">
+            <h1 data-step-heading tabIndex={-1} className="text-3xl font-black leading-snug text-foreground md:text-[2.6rem] md:leading-[1.3]">
               別擔心，
               <br />
               每個孩子都有自己的步調。
@@ -193,7 +198,7 @@ function Landing({ onStart }: { onStart: () => void }) {
                 </span>
               </div>
             </div>
-            <p className="mt-3 text-xs text-muted-foreground/80">
+            <p className="mt-3 text-xs text-muted-foreground">
               免費使用・約 3 分鐘・不需留下個人資料
             </p>
           </div>
@@ -278,7 +283,7 @@ function Landing({ onStart }: { onStart: () => void }) {
               step: "01",
               icon: CalendarDays,
               iconBg: "#E6F2EF",
-              iconColor: "#0E7C6B",
+              iconColor: "#0C7464",
               title: "輸入孩子的生日",
               desc: "系統自動計算實足年齡，早產兒也會自動換算矯正年齡，找出最適合的年齡題組。",
             },
@@ -286,7 +291,7 @@ function Landing({ onStart }: { onStart: () => void }) {
               step: "02",
               icon: MessageSquareText,
               iconBg: "#FBF3E4",
-              iconColor: "#B8860B",
+              iconColor: "#8A5A10",
               title: "回答日常觀察小問題",
               desc: "每題只需回答「是」或「否」，都是平常和孩子相處就觀察得到的行為，沒有標準答案的壓力。",
             },
@@ -294,7 +299,7 @@ function Landing({ onStart }: { onStart: () => void }) {
               step: "03",
               icon: ClipboardCheck,
               iconBg: "#FCEBE8",
-              iconColor: "#E07A5F",
+              iconColor: "#A84536",
               title: "查看發展狀態分析",
               desc: "立即獲得四大面向的初步分析，並提供對應的衛教資訊與後續建議，陪您安心走下一步。",
             },
@@ -345,7 +350,7 @@ function Landing({ onStart }: { onStart: () => void }) {
       <section className="bg-primary py-16 text-primary-foreground">
         <div className="container grid gap-8 md:grid-cols-[1.2fr_1fr] md:items-center">
           <div>
-            <p className="mb-3 inline-flex items-center gap-2 rounded-full bg-primary-foreground/10 px-4 py-1.5 text-xs font-medium text-primary-foreground/90">
+            <p className="mb-3 inline-flex items-center gap-2 rounded-full bg-primary-foreground/10 px-4 py-1.5 text-xs font-medium text-primary-foreground">
               給爸媽的小提醒
             </p>
             <h2 className="text-2xl font-bold md:text-3xl">
@@ -356,7 +361,7 @@ function Landing({ onStart }: { onStart: () => void }) {
               歲前視為早期療育的「黃金期」——多數研究支持：愈早發現、愈早開始介入，對孩子的幫助愈大。台灣每年有近 4
               萬名兒童被通報發展遲緩，其中不少孩子因為「再等等看」而延誤了評估時機。定期自我檢核，就是給孩子多一層守護。
             </p>
-            <p className="mt-4 text-sm italic text-primary-foreground/70">
+            <p className="mt-4 text-sm italic text-primary-foreground">
               「早一步了解，不是貼標籤，而是給孩子最溫柔的陪伴。」
             </p>
           </div>
@@ -375,7 +380,7 @@ function Landing({ onStart }: { onStart: () => void }) {
                 <p className="text-3xl font-black text-[#FAF7F0] md:text-[40px] md:leading-tight">
                   {item.num}
                 </p>
-                <p className="mt-1.5 text-xs text-primary-foreground/80">
+                <p className="mt-1.5 text-xs text-primary-foreground">
                   {item.label}
                 </p>
               </div>
@@ -413,7 +418,7 @@ function Landing({ onStart }: { onStart: () => void }) {
               <h2 className="text-xl font-bold text-accent-foreground md:text-2xl">
                 現在就花 3 分鐘，更了解您的孩子
               </h2>
-              <p className="mt-2 text-sm text-accent-foreground/80">
+              <p className="mt-2 text-sm text-accent-foreground">
                 免註冊、作答內容不上傳，結果立即呈現。若有疑慮，樂智康北桃竹 10 間院所都在您身邊。
               </p>
             </div>
@@ -459,6 +464,10 @@ function TestFlow({ onExit }: { onExit: () => void }) {
   const [answers, setAnswers] = useState<Record<string, boolean>>({});
   const [idx, setIdx] = useState(0);
   const [animKey, setAnimKey] = useState(0);
+  const focusToken = stage === "quiz" ? `${stage}:${idx}` : stage;
+  const { announcement, containerRef } = useStepFocus<HTMLDivElement>(focusToken, {
+    context: "兒童發展檢測",
+  });
 
   const result: ScreeningResult | null = useMemo(() => {
     if (stage !== "result" || !questionnaire) return null;
@@ -536,7 +545,8 @@ function TestFlow({ onExit }: { onExit: () => void }) {
   }
 
   return (
-    <>
+    <div ref={containerRef}>
+      <StepLiveRegion message={announcement} />
       {stage === "intro" && (
         <IntroStage
           birthDate={birthDate}
@@ -569,7 +579,7 @@ function TestFlow({ onExit }: { onExit: () => void }) {
           onRestart={restart}
         />
       )}
-    </>
+    </div>
   );
 }
 
@@ -622,7 +632,7 @@ function IntroStage(props: {
                 <span className="block h-full w-1/3 rounded-full bg-primary/70" />
               </span>
             </div>
-            <h1 className="text-2xl font-bold text-foreground">
+            <h1 data-step-heading tabIndex={-1} className="text-2xl font-bold text-foreground">
               先告訴我們孩子的生日
             </h1>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -631,7 +641,7 @@ function IntroStage(props: {
 
             <div className="mt-8 flex flex-col gap-6">
               <div className="flex flex-col gap-2">
-                <p className="text-xs text-primary/80">
+                <p className="text-xs text-primary">
                   請放心，這一步只是為了幫孩子挑對題組。
                 </p>
                 <Label htmlFor="birth" className="font-medium">
@@ -688,7 +698,7 @@ function IntroStage(props: {
               </div>
 
               {props.error && (
-                <div className="flex items-start gap-2.5 rounded-xl bg-destructive/10 p-4 text-sm leading-relaxed text-destructive">
+                <div role="alert" aria-live="assertive" className="flex items-start gap-2.5 rounded-xl bg-destructive/10 p-4 text-sm leading-relaxed text-destructive">
                   <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
                   {props.error}
                 </div>
@@ -756,6 +766,11 @@ function QuizStage(props: {
           <div
             className="h-full rounded-full bg-primary transition-all duration-300 ease-out"
             style={{ width: `${((idx + 1) / total) * 100}%` }}
+            role="progressbar"
+            aria-label="兒童發展檢測作答進度"
+            aria-valuemin={1}
+            aria-valuemax={total}
+            aria-valuenow={idx + 1}
           />
         </div>
         {halfway ? (
@@ -781,7 +796,7 @@ function QuizStage(props: {
               {CatIcon && <CatIcon className="h-3.5 w-3.5" />}
               {q.category}
             </span>
-            <h2 className="text-xl font-bold leading-relaxed text-foreground md:text-2xl">
+            <h2 data-step-heading tabIndex={-1} className="text-xl font-bold leading-relaxed text-foreground md:text-2xl">
               {q.text}
             </h2>
             <p className="mt-3 text-sm text-muted-foreground">
@@ -791,6 +806,7 @@ function QuizStage(props: {
             <div className="mt-9 grid grid-cols-2 gap-4">
               <button
                 onClick={() => onAnswer(true)}
+                aria-pressed={prevAnswer === true}
                 className={`flex min-h-24 flex-col items-center justify-center gap-1.5 rounded-2xl border-2 text-lg font-bold transition-all duration-150 hover:border-primary hover:bg-primary hover:text-primary-foreground active:scale-[0.97] ${
                   prevAnswer === true
                     ? "border-primary bg-primary text-primary-foreground shadow-md"
@@ -799,9 +815,13 @@ function QuizStage(props: {
               >
                 <Check className="h-6 w-6" />
                 是
+                {prevAnswer === true && (
+                  <span className="text-xs underline underline-offset-2">已選擇</span>
+                )}
               </button>
               <button
                 onClick={() => onAnswer(false)}
+                aria-pressed={prevAnswer === false}
                 className={`flex min-h-24 flex-col items-center justify-center gap-1.5 rounded-2xl border-2 text-lg font-bold transition-all duration-150 hover:border-[#8A8578] hover:bg-[#8A8578] hover:text-white active:scale-[0.97] ${
                   prevAnswer === false
                     ? "border-[#8A8578] bg-[#8A8578] text-white shadow-md"
@@ -810,6 +830,9 @@ function QuizStage(props: {
               >
                 <X className="h-6 w-6" />
                 否
+                {prevAnswer === false && (
+                  <span className="text-xs underline underline-offset-2">已選擇</span>
+                )}
               </button>
             </div>
           </div>
@@ -830,7 +853,7 @@ const LIGHT_META = {
   green: {
     label: "發展符合年齡",
     icon: Sparkles,
-    color: "#0E7C6B",
+    color: "#0C7464",
     bg: "#E6F2EF",
     headline: "太好了！孩子目前的發展與年齡相符",
     body: "本次檢核的項目孩子都達到了對應年齡的發展里程碑。每個階段的發展重點不同，建議您每 2～3 個月回來做一次檢核，持續陪伴孩子成長。",
@@ -838,7 +861,7 @@ const LIGHT_META = {
   amber: {
     label: "建議持續觀察",
     icon: Eye,
-    color: "#C98A2D",
+    color: "#8A5A10",
     bg: "#FBF3E4",
     headline: "大致符合年齡，有一個項目值得多觀察",
     body: "孩子大部分的發展都達到了年齡標準，只有一個項目尚未通過。這不一定代表有問題——有些能力只是還沒被引導出來。建議您在日常中多提供練習機會，並於 1～2 個月後再次檢核；若仍未通過，或您有其他疑慮，歡迎諮詢專業醫師。",
@@ -846,7 +869,7 @@ const LIGHT_META = {
   red: {
     label: "建議進一步評估",
     icon: AlertCircle,
-    color: "#D9705F",
+    color: "#A84536",
     bg: "#FCEBE8",
     headline: "有幾個項目值得請專業人員看看",
     body: "本次檢核中有部分重要項目尚未通過。請先別過度擔心——這只是初步的參考結果，不代表孩子一定有發展問題，但確實值得請專業醫師進一步了解。3 歲前是大腦發展的黃金期，早一步了解，就是給孩子多一層守護。",
@@ -904,7 +927,7 @@ function ResultStage(props: {
               <Icon className="h-4 w-4" />
               {lm.label}
             </span>
-            <h1 className="mt-4 text-xl font-bold leading-relaxed text-foreground md:text-2xl">
+            <h1 data-step-heading tabIndex={-1} className="mt-4 text-xl font-bold leading-relaxed text-foreground md:text-2xl">
               {lm.headline}
             </h1>
             <p
@@ -933,7 +956,7 @@ function ResultStage(props: {
               const meta = CATEGORY_META[c.category];
               const pct = Math.round((c.passed / c.total) * 100);
               const failed = c.failedQuestions.length > 0;
-              const barColor = failed ? "#D9A441" : "#0E7C6B";
+              const barColor = failed ? "#8A5A10" : "#0C7464";
               return (
                 <div key={c.category}>
                   <div className="mb-1.5 flex items-center justify-between text-sm">
@@ -944,7 +967,7 @@ function ResultStage(props: {
                       />
                       {c.category}
                       {c.failedWarning && (
-                        <span className="rounded-full bg-[#FBF3E4] px-2 py-0.5 text-[11px] font-medium text-[#9A6B1F]">
+                        <span className="rounded-full bg-[#FBF3E4] px-2 py-0.5 text-[11px] font-medium text-[#7A4D0A]">
                           含重點觀察項目
                         </span>
                       )}
@@ -966,7 +989,7 @@ function ResultStage(props: {
                           key={fq.id}
                           className="flex items-start gap-2 rounded-xl bg-[#FBF3E4]/70 px-3.5 py-2.5 text-xs leading-relaxed text-foreground/75"
                         >
-                          <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#C98A2D]" />
+                          <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#8A5A10]" />
                           {fq.text}
                         </li>
                       ))}
@@ -992,7 +1015,7 @@ function ResultStage(props: {
                   ? "樂智康醫學北桃竹 10 間院所提供兒童發展相關醫療服務，歡迎就近諮詢，讓專業團隊陪伴孩子每個成長階段。"
                   : "自我檢核只是第一步。樂智康醫學北桃竹 10 間院所提供兒童發展相關醫療服務，建議您攜帶兒童健康手冊與本次結果，就近諮詢專業醫師。"}
               </p>
-              <p className="mt-3 text-xs text-primary-foreground/70">
+              <p className="mt-3 text-xs text-primary-foreground">
                 台北 6 間・桃園 1 間・新竹 3 間
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
@@ -1047,10 +1070,10 @@ function ResultStage(props: {
             <div className="grid gap-4 sm:grid-cols-2">
               {articles.map((a) => {
                 const topColor = a.code.startsWith("T")
-                  ? "#C98A2D"
+                  ? "#8A5A10"
                   : (CATEGORY_META[
                       (a as { category?: string }).category as keyof typeof CATEGORY_META
-                    ]?.color ?? "#0E7C6B");
+                    ]?.color ?? "#0C7464");
                 return (
                   <a
                     key={a.code}

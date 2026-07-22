@@ -3,7 +3,7 @@
  * Style: Clinical Serenity — 瑞士排版 × 現代醫療編輯設計
  * 白底大量留白、青綠 #009B8D 唯一強調色、單題單屏、雙欄不對稱結構
  */
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   AlertTriangle,
   ArrowLeft,
@@ -17,6 +17,7 @@ import {
   Stethoscope,
 } from "lucide-react";
 import BodyMap from "@/components/BodyMap";
+import { StepLiveRegion, useStepFocus } from "@/hooks/useStepFocus";
 import {
   RED_FLAGS,
   Region,
@@ -62,7 +63,7 @@ function SectionMark({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-3">
       <span className="inline-block w-6 h-[3px] bg-[#009B8D] rounded-full" />
-      <span className="text-sm font-semibold tracking-widest text-[#009B8D]">{children}</span>
+      <span className="text-sm font-semibold tracking-widest text-[#007A6E]">{children}</span>
     </div>
   );
 }
@@ -70,15 +71,14 @@ function SectionMark({ children }: { children: React.ReactNode }) {
 export default function Home() {
   const [step, setStep] = useState<Step>({ stage: "intro" });
   const [animKey, setAnimKey] = useState(0);
+  const { announcement, containerRef } = useStepFocus(animKey, {
+    context: "疼痛評估",
+  });
 
   const go = (next: Step) => {
     setStep(next);
     setAnimKey((k) => k + 1);
   };
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [animKey]);
 
   const progress = (stageIndex(step) / 4) * 100;
 
@@ -98,25 +98,32 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAF8] text-[#2B3634]" style={{ fontFamily: "'Noto Sans TC', sans-serif" }}>
+    <div className="pain-scope min-h-screen bg-[#FAFAF8] text-[#2B3634]" style={{ fontFamily: "'Noto Sans TC', sans-serif" }}>
+      <StepLiveRegion message={announcement} />
       {/* 嵌入版：不重複 Zenbu 頁首，只保留一條細進度線 */}
       <div className="sticky top-0 z-40 h-[3px] bg-[#EDF3F1]">
         <div
           className="h-full bg-[#009B8D] transition-all duration-500 ease-out"
           style={{ width: `${Math.max(progress, 4)}%` }}
+          role="progressbar"
+          aria-label="疼痛評估完成進度"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(progress)}
         />
       </div>
 
       {/* 步驟指示 */}
       {step.stage !== "intro" && (
         <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-5">
-          <ol className="flex items-center gap-1 text-[11px] sm:text-xs text-[#9AA8A5] flex-wrap">
+          <ol className="flex items-center gap-1 text-[11px] sm:text-xs text-[#5F6F6B] flex-wrap">
             {STEP_LABELS.map((label, i) => (
               <li key={label} className="flex items-center gap-1">
                 <span
+                  aria-current={i === stageIndex(step) ? "step" : undefined}
                   className={
                     i <= stageIndex(step)
-                      ? "text-[#009B8D] font-semibold"
+                      ? "text-[#007A6E] font-semibold underline decoration-2 underline-offset-4"
                       : ""
                   }
                 >
@@ -131,7 +138,11 @@ export default function Home() {
         </div>
       )}
 
-      <main key={animKey} className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+      <main
+        key={animKey}
+        ref={containerRef}
+        className="animate-in fade-in slide-in-from-bottom-2 duration-300"
+      >
         {step.stage === "intro" && <Intro onStart={() => go({ stage: "region" })} />}
 
         {step.stage === "region" && (
@@ -215,7 +226,7 @@ export default function Home() {
       {/* 嵌入版：精簡底部，只留一行必要免責 */}
       <footer className="mt-14 border-t border-[#E4ECEA]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 text-center">
-          <p className="text-xs text-[#9AA8A5] leading-relaxed">
+          <p className="text-xs text-[#5F6F6B] leading-relaxed">
             本工具提供自我評估參考，不能取代醫師當面診斷。症狀持續或加劇，請盡速就醫。
           </p>
         </div>
@@ -230,10 +241,10 @@ function Intro({ onStart }: { onStart: () => void }) {
     <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14 pb-8">
       <div className="grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-14 items-center">
         <div className="space-y-6">
-          <h1 className="text-[clamp(26px,4.2vw,40px)] font-black leading-[1.35] tracking-tight text-[#1F2D2A]">
+          <h1 data-step-heading tabIndex={-1} className="text-[clamp(26px,4.2vw,40px)] font-black leading-[1.35] tracking-tight text-[#1F2D2A]">
             哪裡痛，點哪裡。
             <br />
-            <span className="text-[#009B8D]">60 秒</span>瞭解你的疼痛。
+            <span className="text-[#007A6E]">60 秒</span>瞭解你的疼痛。
           </h1>
           <p className="text-[16px] sm:text-[17px] leading-[1.9] text-[#4A4A4A] max-w-md">
             不用掛號、不用填資料。點選疼痛的部位、回答幾個問題，你就會知道自己的狀況最可能是什麼、下一步該怎麼做。
@@ -241,12 +252,12 @@ function Intro({ onStart }: { onStart: () => void }) {
           <div className="flex flex-wrap items-center gap-4">
             <button
               onClick={onStart}
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-[#009B8D] text-white text-base font-bold rounded-lg hover:bg-[#007A6E] hover:shadow-lg hover:shadow-[#009B8D]/20 active:scale-[0.97] transition-all duration-150"
+              className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-[#007A6E] text-white text-base font-bold rounded-lg hover:bg-[#006158] hover:shadow-lg hover:shadow-[#009B8D]/20 active:scale-[0.97] transition-all duration-150"
             >
               開始評估我的疼痛
               <ArrowRight className="w-4.5 h-4.5" />
             </button>
-            <span className="inline-flex items-center gap-1.5 text-sm text-[#9AA8A5]">
+            <span className="inline-flex items-center gap-1.5 text-sm text-[#5F6F6B]">
               <Clock className="w-4 h-4" />
               免登入 · 免填資料
             </span>
@@ -257,7 +268,7 @@ function Intro({ onStart }: { onStart: () => void }) {
               <li key={s} className="flex items-center flex-1 last:flex-none">
                 <span className="flex flex-col items-start gap-1.5">
                   <span className="w-2 h-2 rounded-full border border-[#009B8D] bg-white" />
-                  <span className="text-[11px] text-[#7A8886] whitespace-nowrap">{s}</span>
+                  <span className="text-[11px] text-[#5D6C68] whitespace-nowrap">{s}</span>
                 </span>
                 {i < arr.length - 1 && (
                   <span className="flex-1 h-px bg-[#CFE3E0] mx-2 -mt-5" />
@@ -290,12 +301,12 @@ function RegionSelect({
       <div className="space-y-4 mb-8">
         <SectionMark>STEP 1 · 點選部位</SectionMark>
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="text-[clamp(24px,4vw,34px)] font-black leading-snug text-[#1F2D2A]">
+          <h2 data-step-heading tabIndex={-1} className="text-[clamp(24px,4vw,34px)] font-black leading-snug text-[#1F2D2A]">
             哪裡最痛？點給我們看。
           </h2>
           <button
             onClick={onBack}
-            className="inline-flex items-center gap-1.5 text-sm text-[#9AA8A5] hover:text-[#009B8D] transition-colors mb-1.5"
+            className="inline-flex items-center gap-1.5 text-sm text-[#5F6F6B] hover:text-[#007A6E] transition-colors mb-1.5"
           >
             <ArrowLeft className="w-4 h-4" />
             回上一步
@@ -314,7 +325,7 @@ function RegionSelect({
         </div>
 
         <div className="flex flex-col gap-3">
-          <p className="text-xs font-semibold tracking-widest text-[#8A9995] uppercase pl-1">
+          <p className="text-xs font-semibold tracking-widest text-[#5F6F6B] uppercase pl-1">
             或從清單選擇
           </p>
           {regions.map((r, i) => (
@@ -325,12 +336,12 @@ function RegionSelect({
               style={{ animationDelay: `${i * 50}ms` }}
             >
               <div>
-                <div className="font-bold text-[17px] text-[#1F2D2A] group-hover:text-[#009B8D] transition-colors">
+                <div className="font-bold text-[17px] text-[#1F2D2A] group-hover:text-[#007A6E] transition-colors">
                   {r.name}
                 </div>
-                <div className="text-sm text-[#7A8886] mt-0.5">{r.description}</div>
+                <div className="text-sm text-[#5D6C68] mt-0.5">{r.description}</div>
               </div>
-              <ChevronRight className="w-5 h-5 text-[#C4D2CF] group-hover:text-[#009B8D] group-hover:translate-x-0.5 transition-all shrink-0" />
+              <ChevronRight className="w-5 h-5 text-[#5F6F6B] group-hover:text-[#007A6E] group-hover:translate-x-0.5 transition-all shrink-0" />
             </button>
           ))}
         </div>
@@ -406,13 +417,13 @@ function GuidePage({ guideId, onBack }: { guideId: string; onBack: () => void })
     <section className="max-w-2xl mx-auto px-4 sm:px-6 pt-8 pb-10">
       <div className="space-y-6">
         <SectionMark>就醫指引</SectionMark>
-        <h2 className="text-[clamp(24px,4vw,34px)] font-black leading-snug text-[#1F2D2A]">
+        <h2 data-step-heading tabIndex={-1} className="text-[clamp(24px,4vw,34px)] font-black leading-snug text-[#1F2D2A]">
           {info.title}：建議先由這些科別幫你確認
         </h2>
         <p className="text-[16px] leading-[1.85] text-[#4A4A4A]">{info.lead}</p>
 
         <div className="bg-white border border-[#E4ECEA] rounded-xl p-6 space-y-3">
-          <div className="text-sm font-bold tracking-wide text-[#6B7C79]">常見的可能原因</div>
+          <div className="text-sm font-bold tracking-wide text-[#5D6C68]">常見的可能原因</div>
           <ul className="space-y-2">
             {info.causes.map((c) => (
               <li key={c} className="flex items-start gap-2.5 text-[15px] text-[#4A4A4A] leading-relaxed">
@@ -424,14 +435,14 @@ function GuidePage({ guideId, onBack }: { guideId: string; onBack: () => void })
         </div>
 
         <div className="bg-white border border-[#E4ECEA] rounded-xl p-6 space-y-4">
-          <div className="text-sm font-bold tracking-wide text-[#6B7C79]">建議的就醫科別</div>
+          <div className="text-sm font-bold tracking-wide text-[#5D6C68]">建議的就醫科別</div>
           <div className="space-y-3">
             {info.advice.map((a) => (
               <div key={a.dept} className="flex items-start gap-3 border-l-2 border-[#E0F5F2] pl-4 py-1">
                 <Stethoscope className="w-4.5 h-4.5 text-[#009B8D] mt-0.5 shrink-0" />
                 <div>
                   <div className="font-bold text-[15px] text-[#1F2D2A]">{a.dept}</div>
-                  <div className="text-sm text-[#7A8886] mt-0.5 leading-relaxed">{a.when}</div>
+                  <div className="text-sm text-[#5D6C68] mt-0.5 leading-relaxed">{a.when}</div>
                 </div>
               </div>
             ))}
@@ -445,14 +456,14 @@ function GuidePage({ guideId, onBack }: { guideId: string; onBack: () => void })
         <div className="flex flex-wrap gap-3 pt-1">
           <a
             href={locationsUrl(`pain-guide-${guideId}`)}
-            className="inline-flex items-center gap-2 px-7 py-3 bg-[#009B8D] text-white font-bold rounded-lg hover:bg-[#007A6E] active:scale-[0.97] transition-all duration-150"
+            className="inline-flex items-center gap-2 px-7 py-3 bg-[#007A6E] text-white font-bold rounded-lg hover:bg-[#006158] active:scale-[0.97] transition-all duration-150"
           >
             <MapPin className="w-4.5 h-4.5" />
             找離你最近的院所
           </a>
           <button
             onClick={onBack}
-            className="inline-flex items-center gap-2 px-6 py-3 border border-[#D4E7E4] rounded-lg text-[#4A6360] font-medium hover:border-[#009B8D] hover:text-[#009B8D] transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-[#D4E7E4] rounded-lg text-[#4A6360] font-medium hover:border-[#007A6E] hover:text-[#007A6E] transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             回到部位選擇
@@ -477,17 +488,17 @@ function RedFlagCheck({
     <section className="max-w-2xl mx-auto px-4 sm:px-6 pt-8 pb-10">
       <div className="space-y-6">
         <SectionMark>STEP 2 · 安全確認</SectionMark>
-        <h2 className="text-[clamp(24px,4vw,34px)] font-black leading-snug text-[#1F2D2A]">
+        <h2 data-step-heading tabIndex={-1} className="text-[clamp(24px,4vw,34px)] font-black leading-snug text-[#1F2D2A]">
           繼續之前，先確認你的安全
         </h2>
         <p className="text-[16px] leading-[1.85] text-[#4A4A4A]">
           下列情況屬於需要盡快就醫的警訊。花 10 秒看一下——你目前有其中任何一項嗎？
         </p>
 
-        <div className="bg-white border border-[#F0D9D4] border-l-[3px] border-l-[#D9634E] rounded-xl rounded-l-none p-6 space-y-3.5">
+        <div className="bg-white border border-[#F0D9D4] border-l-[3px] border-l-[#B04734] rounded-xl rounded-l-none p-6 space-y-3.5">
           {RED_FLAGS.map((flag) => (
             <div key={flag} className="flex items-start gap-3">
-              <AlertTriangle className="w-4.5 h-4.5 text-[#D9634E] mt-0.5 shrink-0" />
+              <AlertTriangle className="w-4.5 h-4.5 text-[#B04734] mt-0.5 shrink-0" />
               <span className="text-[15px] leading-relaxed text-[#4A4A4A]">{flag}</span>
             </div>
           ))}
@@ -496,13 +507,13 @@ function RedFlagCheck({
         <div className="grid sm:grid-cols-2 gap-3 pt-2">
           <button
             onClick={onSafe}
-            className="px-6 py-4 bg-[#009B8D] text-white font-bold text-base rounded-lg hover:bg-[#007A6E] hover:shadow-lg hover:shadow-[#009B8D]/20 active:scale-[0.98] transition-all duration-150"
+            className="px-6 py-4 bg-[#007A6E] text-white font-bold text-base rounded-lg hover:bg-[#006158] hover:shadow-lg hover:shadow-[#009B8D]/20 active:scale-[0.98] transition-all duration-150"
           >
             都沒有，安心繼續
           </button>
           <button
             onClick={onWarning}
-            className="px-6 py-4 bg-white border border-[#D9634E] text-[#D9634E] font-bold text-base rounded-lg hover:bg-[#FDF5F3] active:scale-[0.98] transition-all duration-150"
+            className="px-6 py-4 bg-white border border-[#B04734] text-[#B04734] font-bold text-base rounded-lg hover:bg-[#FDF5F3] active:scale-[0.98] transition-all duration-150"
           >
             有其中一項
           </button>
@@ -510,7 +521,7 @@ function RedFlagCheck({
 
         <button
           onClick={onBack}
-          className="inline-flex items-center gap-1.5 text-sm text-[#9AA8A5] hover:text-[#009B8D] transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm text-[#5F6F6B] hover:text-[#007A6E] transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           回上一步
@@ -524,25 +535,25 @@ function RedFlagCheck({
 function RedFlagWarning({ onRestart }: { onRestart: () => void }) {
   return (
     <section className="max-w-2xl mx-auto px-4 sm:px-6 pt-8 pb-10">
-      <div className="bg-white border border-[#F0D9D4] border-t-[3px] border-t-[#D9634E] rounded-xl p-8 space-y-5 text-center shadow-sm">
+      <div className="bg-white border border-[#F0D9D4] border-t-[3px] border-t-[#B04734] rounded-xl p-8 space-y-5 text-center shadow-sm">
         <div className="w-14 h-14 mx-auto rounded-full bg-[#FDF0ED] flex items-center justify-center">
-          <AlertTriangle className="w-7 h-7 text-[#D9634E]" />
+          <AlertTriangle className="w-7 h-7 text-[#B04734]" />
         </div>
-        <h2 className="text-2xl font-black text-[#1F2D2A]">請盡快就醫，不要等</h2>
+        <h2 data-step-heading tabIndex={-1} className="text-2xl font-black text-[#1F2D2A]">請盡快就醫，不要等</h2>
         <p className="text-[16px] leading-[1.9] text-[#4A4A4A] text-left">
           你勾選的情況屬於醫療上的「危險警訊」，可能代表神經受到嚴重壓迫、感染或其他需要立即處理的問題。這已經超出自我評估的範圍——請立即前往急診或醫院就診。就醫後若需復健追蹤，歡迎到鄰近院所。
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
           <a
             href={locationsUrl("pain-redflag")}
-            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-[#E4ECEA] rounded-lg text-[#4A4A4A] font-medium hover:border-[#009B8D] hover:text-[#009B8D] transition-all"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-[#E4ECEA] rounded-lg text-[#4A4A4A] font-medium hover:border-[#007A6E] hover:text-[#007A6E] transition-all"
           >
             <MapPin className="w-4.5 h-4.5" />
             就醫後需復健追蹤？查看院所
           </a>
           <button
             onClick={onRestart}
-            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-[#E4ECEA] rounded-lg text-[#4A4A4A] font-medium hover:border-[#009B8D] hover:text-[#009B8D] transition-all"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-[#E4ECEA] rounded-lg text-[#4A4A4A] font-medium hover:border-[#007A6E] hover:text-[#007A6E] transition-all"
           >
             <RotateCcw className="w-4 h-4" />
             重新評估
@@ -582,11 +593,11 @@ function QuestionFlow({
           </SectionMark>
         </div>
 
-        <h2 className="text-[clamp(22px,3.6vw,32px)] font-black leading-snug text-[#1F2D2A]">
+        <h2 data-step-heading tabIndex={-1} className="text-[clamp(22px,3.6vw,32px)] font-black leading-snug text-[#1F2D2A]">
           {question.text}
         </h2>
         {question.subtext && (
-          <p className="text-[15px] text-[#7A8886] leading-relaxed -mt-3">{question.subtext}</p>
+          <p className="text-[15px] text-[#5D6C68] leading-relaxed -mt-3">{question.subtext}</p>
         )}
 
         <div className="space-y-3">
@@ -602,17 +613,17 @@ function QuestionFlow({
                   {opt.text}
                 </span>
                 {opt.hint && (
-                  <div className="text-[13px] text-[#9AA8A5] mt-1">{opt.hint}</div>
+                  <div className="text-[13px] text-[#5F6F6B] mt-1">{opt.hint}</div>
                 )}
               </div>
-              <ChevronRight className="w-5 h-5 text-[#C4D2CF] group-hover:text-[#009B8D] group-hover:translate-x-0.5 transition-all shrink-0" />
+              <ChevronRight className="w-5 h-5 text-[#5F6F6B] group-hover:text-[#007A6E] group-hover:translate-x-0.5 transition-all shrink-0" />
             </button>
           ))}
         </div>
 
         <button
           onClick={onBack}
-          className="inline-flex items-center gap-1.5 text-sm text-[#9AA8A5] hover:text-[#009B8D] transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm text-[#5F6F6B] hover:text-[#007A6E] transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           回上一步
@@ -652,16 +663,16 @@ function ResultPage({
       <div className="space-y-8">
         <div className="space-y-5">
           <SectionMark>評估結果</SectionMark>
-          <div className="inline-flex items-center gap-2 text-sm text-[#7A8886]">
+          <div className="inline-flex items-center gap-2 text-sm text-[#5D6C68]">
             <CheckCircle2 className="w-4 h-4 text-[#009B8D]" />
             根據你的描述，你的狀況最可能是——
           </div>
-          <h2 className="text-[clamp(28px,5vw,42px)] font-black leading-tight text-[#1F2D2A]">
+          <h2 data-step-heading tabIndex={-1} className="text-[clamp(28px,5vw,42px)] font-black leading-tight text-[#1F2D2A]">
             {result.name}
           </h2>
           {result.englishName && (
             <p
-              className="text-sm tracking-wide text-[#9AA8A5] -mt-2"
+              className="text-sm tracking-wide text-[#5F6F6B] -mt-2"
               style={{ fontFamily: "'Montserrat',sans-serif" }}
             >
               {result.englishName}
@@ -703,12 +714,12 @@ function ResultPage({
         ) : (
           <div className="bg-[#F5F8F7] border border-[#E0E9E7] rounded-xl p-6 sm:p-7">
             <div className="flex items-start gap-3">
-              <BookOpen className="w-5 h-5 text-[#9AA8A5] mt-1 shrink-0" />
+              <BookOpen className="w-5 h-5 text-[#5F6F6B] mt-1 shrink-0" />
               <div>
                 <div className="font-bold text-[16px] text-[#4A4A4A]">
                   這個主題的完整衛教文章即將上線
                 </div>
-                <div className="text-sm text-[#7A8886] mt-1 leading-relaxed">
+                <div className="text-sm text-[#5D6C68] mt-1 leading-relaxed">
                   想先了解自己的狀況？到院所現場，讓醫師當面為你說明。
                 </div>
               </div>
@@ -719,7 +730,7 @@ function ResultPage({
         {/* 常見免開刀治療方向（2026-07-19 對照表 v2；bundle 以 patch_pain_bundle_v14.py 注入等價區塊） */}
         {(TREATMENT_MAP[result.slug] ?? []).length > 0 && (
           <div className="space-y-3">
-            <p className="text-sm font-semibold text-[#7A8886]">
+            <p className="text-sm font-semibold text-[#5D6C68]">
               這類問題常見的免開刀治療方向：
             </p>
             <div className="grid gap-2.5">
@@ -735,14 +746,14 @@ function ResultPage({
                   >
                     <div>
                       <div className="text-sm font-bold text-[#1F2D2A]">{t.name}</div>
-                      <div className="text-xs text-[#7A8886] mt-1">{t.desc}</div>
+                      <div className="text-xs text-[#5D6C68] mt-1">{t.desc}</div>
                     </div>
-                    <span className="text-[#009B8D] font-bold shrink-0">→</span>
+                    <span className="text-[#007A6E] font-bold shrink-0">→</span>
                   </a>
                 );
               })}
             </div>
-            <p className="text-xs leading-relaxed text-[#9AA8A5]">
+            <p className="text-xs leading-relaxed text-[#5F6F6B]">
               每個人狀況不同，上面是這類問題常見的討論方向；適不適合，需由醫師評估後與你討論。
             </p>
           </div>
@@ -759,7 +770,7 @@ function ResultPage({
           </p>
           <a
             href={locationsUrl(region.lineCampaign)}
-            className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#009B8D] text-white font-bold rounded-lg hover:bg-[#007A6E] hover:shadow-lg hover:shadow-[#009B8D]/20 active:scale-[0.97] transition-all duration-150"
+            className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#007A6E] text-white font-bold rounded-lg hover:bg-[#006158] hover:shadow-lg hover:shadow-[#009B8D]/20 active:scale-[0.97] transition-all duration-150"
           >
             <MapPin className="w-4.5 h-4.5" />
             找離你最近的院所
@@ -769,7 +780,7 @@ function ResultPage({
         {/* 其他可能 */}
         {related.length > 0 && (
           <div className="space-y-3">
-            <p className="text-sm font-semibold text-[#7A8886]">
+            <p className="text-sm font-semibold text-[#5D6C68]">
               覺得不太像？{region.name}也常見這些問題：
             </p>
             <div className="grid sm:grid-cols-3 gap-2.5">
@@ -780,14 +791,14 @@ function ResultPage({
                     href={articleUrl(r.slug)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-white border border-[#E4ECEA] rounded-lg px-4 py-3 text-sm font-medium text-[#4A4A4A] hover:border-[#009B8D] hover:text-[#009B8D] hover:shadow-sm transition-all"
+                    className="bg-white border border-[#E4ECEA] rounded-lg px-4 py-3 text-sm font-medium text-[#4A4A4A] hover:border-[#007A6E] hover:text-[#007A6E] hover:shadow-sm transition-all"
                   >
                     {r.name}
                   </a>
                 ) : (
                   <span
                     key={id}
-                    className="bg-white border border-[#E4ECEA] rounded-lg px-4 py-3 text-sm text-[#9AA8A5]"
+                    className="bg-white border border-[#E4ECEA] rounded-lg px-4 py-3 text-sm text-[#5F6F6B]"
                   >
                     {r.name}
                   </span>
@@ -799,20 +810,20 @@ function ResultPage({
 
         {/* 免責 + 重新評估 */}
         <div className="border-t border-[#E4ECEA] pt-6 space-y-4">
-          <p className="text-xs leading-relaxed text-[#9AA8A5]">
+          <p className="text-xs leading-relaxed text-[#5F6F6B]">
             此結果為根據你的描述所做的「自我評估參考」，並非正式醫療診斷。相同的症狀可能由不同的原因造成，實際診斷需由醫師當面理學檢查與影像評估確認。
           </p>
           <div className="flex flex-wrap gap-4">
             <button
               onClick={onBackToQuestions}
-              className="inline-flex items-center gap-1.5 text-sm text-[#7A8886] hover:text-[#009B8D] transition-colors"
+              className="inline-flex items-center gap-1.5 text-sm text-[#5D6C68] hover:text-[#007A6E] transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               重新回答這個部位
             </button>
             <button
               onClick={onRestart}
-              className="inline-flex items-center gap-1.5 text-sm text-[#7A8886] hover:text-[#009B8D] transition-colors"
+              className="inline-flex items-center gap-1.5 text-sm text-[#5D6C68] hover:text-[#007A6E] transition-colors"
             >
               <RotateCcw className="w-4 h-4" />
               評估其他部位

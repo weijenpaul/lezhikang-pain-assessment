@@ -6,13 +6,17 @@
  * 手臂外緣 y235:275→y535:180-635(手)、軀幹內緣 y295:320/494 → y495:312/502、
  * 胯下 y~580、腿 y595-995（外緣 306/508、內緣膝處 366/446）、足 y995-1035 x284-530
  */
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
+import {
+  BODY_MAP_HIT_TARGET_PX,
+  isKeyboardActivationKey,
+} from "@/lib/accessibility";
 
 export interface BodyMapProps {
   onSelect: (regionId: string) => void;
 }
 
-const TEAL = "#009B8D";
+const TEAL = "#007A6E";
 
 // ★ 交班設定：圖片資產基礎路徑——本站部署走 jsDelivr（v2 遮罩自 tag v6 起提供）
 const ASSET_BASE = "https://cdn.jsdelivr.net/gh/weijenpaul/lezhikang-pain-assessment@v6/assets/pain";
@@ -72,7 +76,7 @@ const zones: ZoneDef[] = [
     id: "neck-shoulder",
     view: "front",
     label: "肩頸肩膀",
-    labelSide: "right",
+    labelSide: "left",
     labelY: 240,
     // 頸 y170-215 + 肩帶 y195-290：外緣從 x298(y195) 到 x275(y235)，含三角肌上緣
     d: "M376 132 L 440 132 L 436 178 L 434 204 C 468 208 506 216 530 228 C 550 238 562 252 566 268 L 561 284 C 511 268 460 260 408 260 C 356 260 305 268 255 284 L 250 268 C 254 252 266 238 286 228 C 310 216 348 208 382 204 L 380 178 Z",
@@ -82,8 +86,8 @@ const zones: ZoneDef[] = [
     id: "chest",
     view: "front",
     label: "胸部",
-    labelSide: "left",
-    labelY: 350,
+    labelSide: "right",
+    labelY: 320,
     guide: true,
     // 軀幹內緣 y295: x320-494 → y415: x326-488
     d: "M330 268 C 380 258 436 258 486 268 L 488 408 C 436 422 380 422 328 408 Z",
@@ -93,8 +97,8 @@ const zones: ZoneDef[] = [
     id: "abdomen",
     view: "front",
     label: "腹部",
-    labelSide: "left",
-    labelY: 480,
+    labelSide: "right",
+    labelY: 490,
     guide: true,
     // y415-540，內緣 x314-500
     d: "M326 414 C 378 428 438 428 490 414 L 493 498 C 439 512 377 512 323 498 Z",
@@ -104,7 +108,7 @@ const zones: ZoneDef[] = [
     id: "elbow-hand",
     view: "front",
     label: "手肘手腕",
-    labelSide: "right",
+    labelSide: "left",
     labelY: 440,
     // 左臂：外緣 y255:273 → y495:223 → 手 y535:180；內緣 y295:318 → y495:256（沿軀幹側）
     d: "M300 224 C 284 234 272 248 268 266 L 262 320 C 258 358 252 396 246 434 C 240 472 232 508 222 540 L 210 574 L 246 588 L 262 552 C 272 516 280 478 286 440 C 292 400 298 360 302 320 L 308 272 C 308 254 306 238 300 224 Z M516 224 C 532 234 544 248 548 266 L 554 320 C 558 358 564 396 570 434 C 576 472 584 508 594 540 L 606 574 L 570 588 L 554 552 C 544 516 536 478 530 440 C 524 400 518 360 514 320 L 508 272 C 508 254 510 238 516 224 Z",
@@ -134,7 +138,7 @@ const zones: ZoneDef[] = [
     id: "leg-foot",
     view: "front",
     label: "小腿足踝",
-    labelSide: "right",
+    labelSide: "left",
     labelY: 930,
     // 小腿 y820-995（左 308-364 漸縮 316-354）+ 足 y995-1035（左 284-344）
     d: "M306 806 L 370 810 C 366 848 362 888 360 920 C 359 946 357 970 354 990 L 350 998 L 300 1012 L 284 1030 L 344 1034 L 350 1002 L 354 990 C 322 986 310 962 312 930 C 313 894 309 848 306 806 Z M510 806 L 446 810 C 450 848 454 888 456 920 C 457 946 459 970 462 990 L 466 998 L 516 1012 L 532 1030 L 472 1034 L 466 1002 L 462 990 C 494 986 506 962 504 930 C 503 894 507 848 510 806 Z",
@@ -176,7 +180,7 @@ const zones: ZoneDef[] = [
     view: "back",
     label: "臀部骨盆",
     labelSide: "right",
-    labelY: 570,
+    labelY: 600,
     // 臀 y530-620
     d: "M290 516 C 368 500 448 500 526 516 L 528 566 C 528 598 520 622 504 634 C 442 650 374 650 312 634 C 296 622 288 598 288 566 Z",
   },
@@ -195,8 +199,8 @@ const zones: ZoneDef[] = [
     id: "pelvis-thigh",
     view: "back",
     label: "大腿後側",
-    labelSide: "right",
-    labelY: 680,
+    labelSide: "left",
+    labelY: 704,
     // y620-735
     d: "M312 640 C 374 656 442 656 504 640 C 511 642 516 646 519 650 L 514 692 C 512 710 510 726 508 738 L 430 744 L 408 714 L 386 744 L 308 738 C 306 726 304 710 302 692 L 297 650 C 300 646 305 642 312 640 Z",
   },
@@ -205,7 +209,7 @@ const zones: ZoneDef[] = [
     id: "knee-back",
     view: "back",
     label: "膝蓋後側",
-    labelSide: "left",
+    labelSide: "right",
     labelY: 785,
     d: "M312 742 L 370 746 L 368 806 L 306 802 C 308 782 310 762 312 742 Z M504 742 L 446 746 L 448 806 L 510 802 C 508 782 506 762 504 742 Z",
   },
@@ -224,7 +228,9 @@ const zones: ZoneDef[] = [
 export default function BodyMap({ onSelect }: BodyMapProps) {
   const [view, setView] = useState<"front" | "back">("front");
   const [hovered, setHovered] = useState<string | null>(null);
+  const [focused, setFocused] = useState<string | null>(null);
   const [baseFailed, setBaseFailed] = useState<Record<string, boolean>>({});
+  const instructionsId = useId();
 
   // 預載背面視角 9 張（底圖 + 8 遮罩），切換視角零延遲
   useEffect(() => {
@@ -244,36 +250,44 @@ export default function BodyMap({ onSelect }: BodyMapProps) {
       {/* 正面 / 背面切換 */}
       <div
         className="inline-flex border border-[#D4E7E4] bg-white"
-        role="tablist"
+        role="group"
         aria-label="切換人體視角"
       >
         {(["front", "back"] as const).map((v, i) => (
           <button
             key={v}
-            role="tab"
-            aria-selected={view === v}
+            type="button"
+            aria-pressed={view === v}
             onClick={() => {
               setView(v);
               setHovered(null);
+              setFocused(null);
             }}
-            className={`px-6 py-1.5 text-sm transition-all duration-200 font-medium ${
+            className={`min-h-11 px-6 py-2 text-sm transition-all duration-200 ${
               i === 1 ? "border-l border-[#D4E7E4]" : ""
             } ${
               view === v
-                ? "bg-[#009B8D] text-white"
-                : "text-[#4A4A4A] hover:text-[#009B8D] bg-white"
+                ? "bg-[#007A6E] text-white font-bold underline decoration-2 underline-offset-4"
+                : "text-[#4A4A4A] hover:text-[#007A6E] bg-white font-medium"
             }`}
           >
+            {view === v && <span aria-hidden="true">✓ </span>}
             {v === "front" ? "正面" : "背面"}
           </button>
         ))}
       </div>
 
+      <p className="sr-only" aria-live="polite" aria-atomic="true">
+        目前顯示人體{view === "front" ? "正面" : "背面"}，共有 8 個可選部位。
+      </p>
+
       <div className="relative w-full max-w-[400px]">
         <svg
           viewBox={`0 0 ${VW} ${VH}`}
           className="w-full h-auto select-none"
+          role="group"
           aria-label="人體部位選擇圖"
+          aria-describedby={instructionsId}
         >
           <image
             href={view === "front" ? FRONT_IMG : BACK_IMG}
@@ -283,6 +297,8 @@ export default function BodyMap({ onSelect }: BodyMapProps) {
             height={VH}
             preserveAspectRatio="xMidYMid meet"
             onError={() => setBaseFailed((f) => ({ ...f, [view]: true }))}
+            aria-hidden="true"
+            style={{ pointerEvents: "none" }}
           />
           {/* 遮罩高亮圖層：與底圖像素貼合，hover/點選時亮起 */}
           {visibleZones.map((z) => (
@@ -294,6 +310,7 @@ export default function BodyMap({ onSelect }: BodyMapProps) {
               width={VW}
               height={VH}
               preserveAspectRatio="xMidYMid meet"
+              aria-hidden="true"
               style={{
                 opacity: hovered === z.key ? (z.guide ? 0.45 : 0.55) : 0,
                 transition: "opacity 160ms ease-out",
@@ -302,23 +319,39 @@ export default function BodyMap({ onSelect }: BodyMapProps) {
             />
           ))}
           {visibleZones.map((z) => {
-            const active = hovered === z.key;
+            const active = hovered === z.key || focused === z.key;
             const lineX1 = z.labelSide === "right" ? 596 : 220;
             const lineX2 = z.labelSide === "right" ? 636 : 180;
             const textX = z.labelSide === "right" ? 644 : 172;
+            const labelWidth = z.label.length * 26 + 28;
+            const labelHitX1 =
+              z.labelSide === "right" ? textX - 14 : textX - labelWidth + 14;
+            const labelHitX2 =
+              z.labelSide === "right" ? textX + labelWidth - 14 : textX + 14;
             return (
               <g
                 key={z.key}
                 onMouseEnter={() => setHovered(z.key)}
                 onMouseLeave={() => setHovered(null)}
+                onFocus={() => setFocused(z.key)}
+                onBlur={() => setFocused(null)}
                 onClick={() => onSelect(z.id)}
                 role="button"
                 aria-label={z.label}
+                aria-describedby={instructionsId}
                 tabIndex={0}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") onSelect(z.id);
+                  if (isKeyboardActivationKey(e.key)) {
+                    e.preventDefault();
+                    onSelect(z.id);
+                  }
                 }}
               >
+                {/*
+                  Keep the anatomical hit area exact. Expanding every body path with a
+                  44 px stroke makes neighbouring regions overlap and can route a click
+                  to the wrong symptom flow on mobile.
+                */}
                 <path
                   d={z.d}
                   fill={showFallback ? "#E0F5F2" : "#ffffff"}
@@ -326,6 +359,35 @@ export default function BodyMap({ onSelect }: BodyMapProps) {
                   stroke={showFallback ? "#7FBDB6" : "none"}
                   strokeWidth={showFallback ? 2 : 0}
                   style={{ cursor: "pointer", pointerEvents: "all" }}
+                />
+                {focused === z.key && (
+                  <path
+                    d={z.d}
+                    fill="none"
+                    stroke="#1F2D2A"
+                    strokeWidth="4"
+                    strokeDasharray="10 7"
+                    vectorEffect="non-scaling-stroke"
+                    aria-hidden="true"
+                    style={{ pointerEvents: "none" }}
+                  />
+                )}
+                {/*
+                  The visible label is an equivalent, isolated 44 CSS px target. Its
+                  non-scaling stroke stays large on mobile without covering another
+                  anatomical region.
+                */}
+                <line
+                  x1={labelHitX1}
+                  y1={z.labelY - 7}
+                  x2={labelHitX2}
+                  y2={z.labelY - 7}
+                  stroke="transparent"
+                  strokeWidth={BODY_MAP_HIT_TARGET_PX}
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                  aria-hidden="true"
+                  style={{ cursor: "pointer", pointerEvents: "stroke" }}
                 />
                 <g
                   style={{
@@ -339,7 +401,7 @@ export default function BodyMap({ onSelect }: BodyMapProps) {
                     y1={z.labelY - 7}
                     x2={lineX2}
                     y2={z.labelY - 7}
-                    stroke={active ? TEAL : "#C2D2CF"}
+                    stroke={active ? TEAL : "#7A8886"}
                     strokeWidth="2"
                   />
                   {/* hover 時標籤反白成 teal 膠囊（2026-07-18 惟仁定案），非 hover 統一 #3D4F4C */}
@@ -373,8 +435,11 @@ export default function BodyMap({ onSelect }: BodyMapProps) {
             );
           })}
         </svg>
-        <p className="text-center text-xs text-[#8A9995] mt-1 tracking-wide">
-          全身皆可點選，點對應部位即可開始
+        <p
+          id={instructionsId}
+          className="text-center text-xs text-[#5F6F6B] mt-1 tracking-wide"
+        >
+          可點選部位，或用 Tab 移動後按 Enter／空白鍵開始
         </p>
       </div>
     </div>

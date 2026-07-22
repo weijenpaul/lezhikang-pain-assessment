@@ -50,7 +50,7 @@ export const CATEGORY_META: Record<
   }
 > = {
   粗大動作: {
-    color: "#0E7C6B",
+    color: "#0C7464",
     bg: "#E6F2EF",
     icon: "https://cdn.jsdelivr.net/gh/weijenpaul/lezhikang-pain-assessment@v8/assets/kids/domain-gross-motor.webp",
     banner: "https://cdn.jsdelivr.net/gh/weijenpaul/lezhikang-pain-assessment@v8/assets/kids/banner-gross-motor.webp",
@@ -58,7 +58,7 @@ export const CATEGORY_META: Record<
     description: "翻身、坐、爬、走、跑、跳等大肌肉動作",
   },
   精細動作: {
-    color: "#C98A2D",
+    color: "#8A5A10",
     bg: "#FBF3E4",
     icon: "https://cdn.jsdelivr.net/gh/weijenpaul/lezhikang-pain-assessment@v8/assets/kids/domain-fine-motor.webp",
     banner: "https://cdn.jsdelivr.net/gh/weijenpaul/lezhikang-pain-assessment@v8/assets/kids/banner-fine-motor.webp",
@@ -66,7 +66,7 @@ export const CATEGORY_META: Record<
     description: "抓握、堆疊、塗鴉、使用湯匙等手部小肌肉動作",
   },
   語言認知: {
-    color: "#D9705F",
+    color: "#A84536",
     bg: "#FCEBE8",
     icon: "https://cdn.jsdelivr.net/gh/weijenpaul/lezhikang-pain-assessment@v8/assets/kids/domain-language.webp",
     banner: "https://cdn.jsdelivr.net/gh/weijenpaul/lezhikang-pain-assessment@v8/assets/kids/banner-language.webp",
@@ -74,7 +74,7 @@ export const CATEGORY_META: Record<
     description: "理解指令、發音、說話、認知理解能力",
   },
   社會情緒: {
-    color: "#5B7DB1",
+    color: "#365E9D",
     bg: "#EAF0F8",
     icon: "https://cdn.jsdelivr.net/gh/weijenpaul/lezhikang-pain-assessment@v8/assets/kids/domain-social.webp",
     banner: "https://cdn.jsdelivr.net/gh/weijenpaul/lezhikang-pain-assessment@v8/assets/kids/banner-social.webp",

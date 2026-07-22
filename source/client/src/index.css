@@ -180,7 +180,7 @@
 }
 /* ===== /kids 兒童發展檢測：作用域主題（墨綠系，不影響 /pain） ===== */
 .kids-scope {
-  --primary: #0E7C6B;
+  --primary: #0C7464;
   --primary-foreground: #FFFFFF;
   --background: #FAF7F0;
   --foreground: #26332F;
@@ -191,11 +191,11 @@
   --accent: #E6F2EF;
   --accent-foreground: #0B5A4E;
   --muted: #F0EEE8;
-  --muted-foreground: #6E7B76;
-  --destructive: #D9705F;
+  --muted-foreground: #5F6B66;
+  --destructive: #A84536;
   --destructive-foreground: #FFFFFF;
   --border: #E5E2DA;
-  --ring: #0E7C6B;
+  --ring: #0C7464;
 }
 /* Tailwind v4 的 container 不自動置中，作用域內補上 */
 .kids-scope .container {
@@ -203,6 +203,19 @@
   max-width: 1152px;
   margin-inline: auto;
   padding-inline: clamp(16px, 4vw, 32px);
+}
+
+/* Zenbu's host reset must not erase keyboard focus. */
+.pain-scope :is(a[href], button, [role="button"]):focus-visible,
+.kids-scope :is(a[href], button, input, [role="button"]):focus-visible {
+  outline: 3px solid #12433D !important;
+  outline-offset: 3px !important;
+}
+
+/* Programmatic step focus is announced; keep it from looking like a clickable control. */
+.pain-scope [data-step-heading]:focus,
+.kids-scope [data-step-heading]:focus {
+  outline: none !important;
 }
 /* 題目卡片入場：200ms 右側滑入（ideas.md 動效規範） */
 @keyframes kids-card-in {
